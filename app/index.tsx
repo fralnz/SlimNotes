@@ -81,6 +81,9 @@ const App = () => {
       <Button key={currentDate} title={"Daily note"} onPress={() =>
           router.push({ pathname: "/note", params: { title: currentDate } })
       }/>
+      <Button title={"Calendar"} onPress={() =>
+          router.push({ pathname: "/cal" })
+      }/>
       <Text>{currentDate}</Text>
     </View>
   );
