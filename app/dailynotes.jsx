@@ -1,34 +1,61 @@
-import { Calendar } from "react-native-calendars";
-import { View } from "react-native";
-import React from "react";
-import { router } from "expo-router";
+import React, { useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Calendar } from 'react-native-calendars';
+import {router} from "expo-router";
 
-const Dailynotes = () => {
+const MyComponent = () => {
+  const [keys, setKeys] = useState([]);
+  const [markedDates, setMarkedDates] = useState({});
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  // Function to get all keys from AsyncStorage
+  const getAllKeys = async () => {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      setKeys(keys);
+      markDates(keys);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Function to mark dates
+  const markDates = (keys) => {
+    const newMarkedDates = {};
+    keys.forEach(key => {
+      newMarkedDates[key] = { selected: true, marked: true, selectedColor: 'blue' };
+    });
+    setMarkedDates(newMarkedDates);
+  };
+
+  // Check if the selected date is in the keys
+  const isDateInKeys = (dateString) => {
+    return keys.includes(dateString);
+  };
+
+  useEffect(() => {
+    getAllKeys();
+  }, []);
+
   return (
-    <View>
-      <Calendar
-        onDayPress={(day) => {
-          console.log("selected day", day);
-          router.push({ pathname: "/note", params: { title: day.dateString } });
-        }}
-        style={{
-          borderWidth: 1,
-          borderColor: "gray",
-          height: 350,
-        }}
-        theme={{
-          backgroundColor: "#ffffff",
-          calendarBackground: "#ffffff",
-          textSectionTitleColor: "#b6c1cd",
-          selectedDayBackgroundColor: "#00adf5",
-          selectedDayTextColor: "#ffffff",
-          todayTextColor: "#00adf5",
-          dayTextColor: "#2d4150",
-          textDisabledColor: "#d9e",
-        }}
-      />
-    </View>
+      <View>
+        <Calendar
+            onDayPress={(day) => {
+              setSelectedDate(day.dateString);
+              router.push({ pathname: "/note", params: { title: day.dateString } })
+            }}
+            markedDates={markedDates}
+        />
+        {selectedDate && (
+            <Text>
+              {isDateInKeys(selectedDate)
+                  ? `${selectedDate} is in keys`
+                  : `${selectedDate} is not in keys`}
+            </Text>
+        )}
+      </View>
   );
 };
 
-export default Dailynotes;
+export default MyComponent;

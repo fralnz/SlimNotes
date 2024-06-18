@@ -8,7 +8,7 @@ import styles from "./style";
 
 const Note = () => {
   const { title } = useLocalSearchParams();
-  const key = "n" + title;
+  const key = title;
   const [storedValue, setStoredValue] = useState("");
   const [inputValue, setInputValue] = useState("");
   const timeoutRef = useRef(null); // Ref to store timeout ID
