@@ -9,17 +9,24 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
     alignSelf: "center",
-    textAlign: "center"
+    textAlign: "center",
   },
   container: {
     flex: 1,
     alignItems: "center",
     flexDirection: "column",
   },
-  title: {
+  noteTitle: {
     fontFamily: "Adamina-Regular",
     fontWeight: 600,
     fontSize: 40,
+  },
+  title: {
+    fontFamily: "Adamina-Regular",
+    fontWeight: "500",
+    fontSize: 50,
+    position: "center",
+    alignSelf: "center",
   },
 });
 

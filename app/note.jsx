@@ -70,7 +70,7 @@ const Note = () => {
 
   return (
       <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.noteTitle}>{title}</Text>
         <Text>Stored Value: {storedValue}</Text>
         <TouchableWithoutFeedback onPress={() => inputRef.current.focus()}>
           <TextInput

@@ -2,13 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Button, TextInput, View, Text } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
-import moment from 'moment';
+import moment from "moment";
+import styles from "./style";
+import {useFonts} from "expo-font";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [input, setInput] = useState("");
 
-  const currentDate = moment().format('DD-MM-YYYY');
+    const [fontsLoaded] = useFonts({
+        "Adamina-Regular": require("../assets/fonts/Adamina-Regular.ttf"),
+    });
+
+  const currentDate = moment().format("YYYY-MM-DD");
   const saveData = async () => {
     try {
       await AsyncStorage.setItem("@storage_Key", JSON.stringify(notes));
@@ -54,8 +60,13 @@ const App = () => {
     saveData();
   }, [notes]);
 
+    if (!fontsLoaded) {
+        return null;
+    }
+
   return (
     <View>
+      <Text style={styles.title}>SlimNotes</Text>
       <TextInput
         onChangeText={setInput}
         placeholder={"Insert note title"}
@@ -78,12 +89,17 @@ const App = () => {
           }
         />
       ))}
-      <Button key={currentDate} title={"Daily note"} onPress={() =>
+      <Button
+        key={currentDate}
+        title={"Daily note"}
+        onPress={() =>
           router.push({ pathname: "/note", params: { title: currentDate } })
-      }/>
-      <Button title={"Calendar"} onPress={() =>
-          router.push({ pathname: "/dailynotes" })
-      }/>
+        }
+      />
+      <Button
+        title={"Calendar"}
+        onPress={() => router.push({ pathname: "/dailynotes" })}
+      />
       <Text>{currentDate}</Text>
     </View>
   );
