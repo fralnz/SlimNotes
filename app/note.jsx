@@ -53,8 +53,12 @@ const Note = () => {
       clearTimeout(timeoutRef.current); // Clear existing timeout if input changes
     }
 
-    timeoutRef.current = setTimeout(() => {
+    timeoutRef.current = setTimeout(async () => {
       storeData(value);
+      if (value === "") {
+        await AsyncStorage.removeItem(key);
+        console.log("deleted")
+      }
     }, 500); // Store data after 1 second of inactivity
   };
 
