@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import moment from "moment";
 import styles from "./style";
 import {useFonts} from "expo-font";
+import Main from "./Main"
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -66,41 +67,7 @@ const App = () => {
 
   return (
     <View>
-      <Text style={styles.title}>SlimNotes</Text>
-      <TextInput
-        onChangeText={setInput}
-        placeholder={"Insert note title"}
-        value={input}
-      />
-      <Button onPress={handleAddNote} title="Add Note" />
-      <Button
-        onPress={() => {
-          handleClearNotes();
-          clearAll();
-        }}
-        title="Clear Notes"
-      />
-      {notes.map((note, index) => (
-        <Button
-          key={index}
-          title={note}
-          onPress={() =>
-            router.push({ pathname: "/note", params: { title: note } })
-          }
-        />
-      ))}
-      <Button
-        key={currentDate}
-        title={"Daily note"}
-        onPress={() =>
-          router.push({ pathname: "/note", params: { title: currentDate } })
-        }
-      />
-      <Button
-        title={"Calendar"}
-        onPress={() => router.push({ pathname: "/dailynotes" })}
-      />
-      <Text>{currentDate}</Text>
+      <Main />
     </View>
   );
 };
