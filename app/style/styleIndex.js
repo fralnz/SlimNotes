@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
 
-const StyleIndex = StyleSheet.create({
-    container: {
-        marginTop: 50,
+const styleIndex = StyleSheet.create({
+    noteContainer: {
+        paddingTop: "1rem",
+        fontFamily: 'Adamina-Regular'
     }
 });
 
-export default StyleIndex;
+export default styleIndex;

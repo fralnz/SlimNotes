@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { TextInput, View, Text } from "react-native";
 import { getCurrentDate, dateToString } from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
+import styleIndex from "../style/styleIndex"
 
 const EditNote = () => {
   const [content, setContent] = useState("");
-  const [savedContent, setSavedContent] = useState(null);
   const [title, setTitle] = useState(null);
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
@@ -53,7 +53,7 @@ const EditNote = () => {
   };
 
   return (
-    <View>
+    <View style={styleIndex.noteContainer}>
       <Text>{title}</Text>
       <TextInput
         onChangeText={onTextChange}
@@ -61,7 +61,7 @@ const EditNote = () => {
         value={content}
       />
       <Text>Title: {title} </Text>
-      <Text>{note?.content}</Text>
+      <Text style={{fontFamily: "Adamina-Regular"}}>{note?.content}</Text>
     </View>
   );
 };
