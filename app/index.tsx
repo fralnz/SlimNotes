@@ -1,6 +1,5 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
-import { Button, TextInput, View, Text } from "react-native";
-import { ThemeContext } from "react-native-elements";
+import React, { useState } from "react";
+import { View } from "react-native";
 import EditNote from "./components/EditNote";
 import { useNoteContext, NoteContextProvider } from "@/app/utils/NoteContext";
 import {dateToString} from "@/app/utils/dateTools";
@@ -13,7 +12,6 @@ const HomeScreen = () => {
     <View>
       <NoteContextProvider>
         <EditNote />
-        {dateToString(currentDate)}
       </NoteContextProvider>
     </View>
   );
