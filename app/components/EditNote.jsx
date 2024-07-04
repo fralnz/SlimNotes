@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { TextInput, View, Text } from "react-native";
 import { getCurrentDate, dateToString } from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
-import styleIndex from "../style/styleIndex"
+import styleNoteEditor from "../style/styleNoteEditor"
 
 const EditNote = () => {
   const [content, setContent] = useState("");
@@ -53,8 +53,8 @@ const EditNote = () => {
   };
 
   return (
-    <View style={styleIndex.noteContainer}>
-      <Text>{title}</Text>
+    <View style={styleNoteEditor.noteContainer}>
+      <Text style={styleNoteEditor.noteTitle}>{title}</Text>
       <TextInput
         onChangeText={onTextChange}
         placeholder={"Insert text here"}
