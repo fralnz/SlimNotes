@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { Button, TextInput, View, Text } from "react-native";
 import { ThemeContext } from "react-native-elements";
 import EditNote from "./components/EditNote";
-import { storeData } from "@/app/utils/storageTools";
+import { useNoteContext, NoteContextProvider } from "@/app/utils/NoteContext";
+import {dateToString} from "@/app/utils/dateTools";
 
 const HomeScreen = () => {
-  const [value, setValue] = useState(null);
+  const [date, setDate] = useState(null);
+  const { currentDate } = useNoteContext();
 
   return (
     <View>
-      <ThemeContext.Provider value={value}>
+      <NoteContextProvider>
         <EditNote />
-      </ThemeContext.Provider>
+        {dateToString(currentDate)}
+      </NoteContextProvider>
     </View>
   );
 };
