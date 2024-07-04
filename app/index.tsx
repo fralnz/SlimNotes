@@ -6,6 +6,7 @@ import { storeData } from "@/app/utils/storageTools";
 
 const HomeScreen = () => {
   const [value, setValue] = useState(null);
+
   return (
     <View>
       <ThemeContext.Provider value={value}>
