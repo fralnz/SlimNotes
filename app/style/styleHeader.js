@@ -7,7 +7,7 @@ const styleHeader = StyleSheet.create({
     padding: 16,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
   icon: {
     height: 32,

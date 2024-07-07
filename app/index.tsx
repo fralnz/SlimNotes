@@ -6,9 +6,6 @@ import AppHeader from "@/app/components/AppHeader";
 import styleAndroid from "@/app/style/styleAndroid";
 
 const HomeScreen = () => {
-  const [date, setDate] = useState(null);
-  const { currentDate } = useNoteContext();
-
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
       <NoteContextProvider>
