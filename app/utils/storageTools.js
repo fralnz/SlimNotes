@@ -48,6 +48,7 @@ export const getAllKeys = async () => {
   }
 
   console.log(keys);
+  return keys;
   // example console.log result:
   // ['@MyApp_user', '@MyApp_key']
 };
