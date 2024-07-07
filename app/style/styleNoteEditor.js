@@ -10,7 +10,7 @@ const styleNoteEditor = StyleSheet.create({
   inputBox: {
     fontFamily: "Adamina-Regular",
     width: "100%",
-    borderWidth: 0
+    borderWidth: 0,
   },
   noteText: {
     fontFamily: "Adamina-Regular",
@@ -19,7 +19,7 @@ const styleNoteEditor = StyleSheet.create({
   noteTitle: {
     fontFamily: "Adamina-Regular",
     fontSize: 48, // 3rem converted to dp
-    fontWeight: '500', // Use string '500'
+    fontWeight: "500", // Use string '500'
   },
 });
 
