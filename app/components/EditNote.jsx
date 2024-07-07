@@ -18,6 +18,7 @@ const EditNote = ({ selectedDate }) => {
         setNote(answer);
         setContent(answer.content);
       } else {
+        setNote("")
         setContent("");
       }
     };

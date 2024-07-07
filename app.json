@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "SlimNotes",
+    "slug": "SlimNotes",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -31,12 +31,13 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/Adamina-Regular.ttf"]
+          "fonts": [
+            "./assets/fonts/Adamina-Regular.ttf"
+          ]
         }
       ]
     ],
     "experiments": {
-      "typedRoutes": true
     }
   }
 }
