@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TextInput, View, Text } from "react-native";
-import { getCurrentDate, dateToString } from "@/app/utils/dateTools";
+import { getCurrentDate, dateToString, transformDate } from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
 import styleNoteEditor from "../style/styleNoteEditor";
 
@@ -12,7 +12,7 @@ const EditNote = ({ selectedDate }) => {
 
   useEffect(() => {
     const fetchNote = async () => {
-      setTitle(selectedDate);
+      setTitle(transformDate(selectedDate, "DD-MM-YYYY"));
       const answer = await getData(selectedDate);
       if (answer) {
         setNote(answer);
@@ -54,19 +54,19 @@ const EditNote = ({ selectedDate }) => {
   };
 
   return (
-      <View style={styleNoteEditor.noteContainer}>
-        <Text style={styleNoteEditor.noteTitle}>{title}</Text>
-        <Text>Title: {title} </Text>
-        <Text style={{ fontFamily: "Adamina-Regular" }}>
-          Saved content: {note?.content}
-        </Text>
-        <TextInput
-            onChangeText={onTextChange}
-            placeholder={"Insert text here"}
-            value={content}
-            multiline={true}
-        />
-      </View>
+    <View style={styleNoteEditor.noteContainer}>
+      <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+      <Text>Title: {title} </Text>
+      <Text style={{ fontFamily: "Adamina-Regular" }}>
+        Saved content: {note?.content}
+      </Text>
+      <TextInput
+        onChangeText={onTextChange}
+        placeholder={"Insert text here"}
+        value={content}
+        multiline={true}
+      />
+    </View>
   );
 };
 
