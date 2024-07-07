@@ -10,9 +10,14 @@ const styleHeader = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 16,
   },
+  headerView: {
+    display: "flex",
+    flexDirection: "row",
+  },
   icon: {
     height: 32,
     width: 32,
+    marginHorizontal: 4,
   },
 });
 
