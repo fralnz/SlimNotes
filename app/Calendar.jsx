@@ -66,8 +66,8 @@ const CalendarNotes = () => {
           onDayPress={(day) => {
             setSelectedDate(day.dateString);
             router.push({
-              pathname: "/note",
-              params: { title: day.dateString },
+              pathname: "/",
+              params: { key: day.dateString },
             });
           }}
           markedDates={markedDates}

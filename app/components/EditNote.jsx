@@ -4,37 +4,38 @@ import { getCurrentDate, dateToString } from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
 import styleNoteEditor from "../style/styleNoteEditor";
 
-const EditNote = () => {
+const EditNote = ({ selectedDate }) => {
   const [content, setContent] = useState("");
-  const [title, setTitle] = useState(null);
+  const [title, setTitle] = useState(selectedDate);
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
 
   useEffect(() => {
     const fetchNote = async () => {
-      setTitle(dateToString(getCurrentDate()));
-      const answer = await getData("note");
+      setTitle(selectedDate);
+      const answer = await getData(selectedDate);
       if (answer) {
         setNote(answer);
         setContent(answer.content);
+      } else {
+        setContent("");
       }
     };
 
     fetchNote();
-  }, []);
+  }, [selectedDate]);
 
   const saveNote = async (c) => {
     const note = {
-      title,
+      title: selectedDate,
       content: c,
       lastedit: getCurrentDate(),
     };
     try {
-      await storeData("note", note);
-      const answer = await getData("note");
+      await storeData(selectedDate, note);
+      const answer = await getData(selectedDate);
       setNote(answer);
     } catch (e) {
-      // saving error
       console.error("Error storing data:", e);
     }
   };
@@ -53,19 +54,19 @@ const EditNote = () => {
   };
 
   return (
-    <View style={styleNoteEditor.noteContainer}>
-      <Text style={styleNoteEditor.noteTitle}>{title}</Text>
-      <Text>Title: {title} </Text>
-      <Text style={{ fontFamily: "Adamina-Regular" }}>
-        Saved content: {note?.content}
-      </Text>
-      <TextInput
-        onChangeText={onTextChange}
-        placeholder={"Insert text here"}
-        value={content}
-        multiline={true}
-      />
-    </View>
+      <View style={styleNoteEditor.noteContainer}>
+        <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+        <Text>Title: {title} </Text>
+        <Text style={{ fontFamily: "Adamina-Regular" }}>
+          Saved content: {note?.content}
+        </Text>
+        <TextInput
+            onChangeText={onTextChange}
+            placeholder={"Insert text here"}
+            value={content}
+            multiline={true}
+        />
+      </View>
   );
 };
 
