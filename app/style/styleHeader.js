@@ -8,6 +8,7 @@ const styleHeader = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 16,
   },
   icon: {
     height: 32,
