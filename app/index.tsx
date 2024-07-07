@@ -1,20 +1,21 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import EditNote from "./components/EditNote";
 import { useNoteContext, NoteContextProvider } from "@/app/utils/NoteContext";
 import AppHeader from "@/app/components/AppHeader";
+import styleAndroid from "@/app/style/styleAndroid";
 
 const HomeScreen = () => {
   const [date, setDate] = useState(null);
   const { currentDate } = useNoteContext();
 
   return (
-    <View>
+    <SafeAreaView style={styleAndroid.droidSafeArea}>
       <NoteContextProvider>
         <AppHeader />
         <EditNote />
       </NoteContextProvider>
-    </View>
+    </SafeAreaView>
   );
 };
 
