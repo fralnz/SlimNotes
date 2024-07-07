@@ -2,19 +2,24 @@ import { StyleSheet } from "react-native";
 
 const styleNoteEditor = StyleSheet.create({
   noteContainer: {
-    paddingTop: "1rem",
+    paddingTop: 16, // 1rem converted to dp
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
+  inputBox: {
+    fontFamily: "Adamina-Regular",
+    width: "100%",
+    borderWidth: 0
+  },
   noteText: {
     fontFamily: "Adamina-Regular",
-    fontSize: "1rem",
+    fontSize: 16, // 1rem converted to dp
   },
   noteTitle: {
     fontFamily: "Adamina-Regular",
-    fontSize: "3rem",
-    fontWeight: 500,
+    fontSize: 48, // 3rem converted to dp
+    fontWeight: '500', // Use string '500'
   },
 });
 

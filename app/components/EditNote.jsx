@@ -55,13 +55,15 @@ const EditNote = () => {
   return (
     <View style={styleNoteEditor.noteContainer}>
       <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+      <Text>Title: {title} </Text>
+      <Text style={{fontFamily: "Adamina-Regular"}}>Saved content: {note?.content}</Text>
       <TextInput
         onChangeText={onTextChange}
         placeholder={"Insert text here"}
         value={content}
+        multiline={true}
       />
-      <Text>Title: {title} </Text>
-      <Text style={{fontFamily: "Adamina-Regular"}}>{note?.content}</Text>
+
     </View>
   );
 };
