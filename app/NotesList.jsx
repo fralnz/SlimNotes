@@ -24,10 +24,15 @@ const NotesList = () => {
       const { validDates, invalidDates } = sortDates(keysArray);
       setDateKeys(validDates);
       setCustomKeys(invalidDates);
+      setVisibleKeys(customKeys);
     };
 
     fetchKeys();
   }, []);
+
+  useEffect(() => {
+    setVisibleKeys(customKeys);
+  }, [customKeys]);
 
   return (
     <SafeAreaView
