@@ -78,6 +78,11 @@ export const sortDates = (arr) => {
 
   // Process each element in the input array
   arr.forEach((dateStr) => {
+    // Exclude elements that start with '@'
+    if (dateStr.startsWith('@')) {
+      return; // Skip this iteration
+    }
+
     // Use a regex pattern to match YYYY-MM-DD format
     if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
       // Try creating a Date object from the string
@@ -106,3 +111,4 @@ export const sortDates = (arr) => {
     invalidDates,
   };
 };
+
