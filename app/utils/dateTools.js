@@ -20,6 +20,36 @@ export const dateToString = (date, option) => {
   }
 };
 
+export const checkIfDate = (dateString) => {
+  // Split the input date string into an array
+  const dateParts = dateString.split("-");
+
+  // Check if there are exactly three parts
+  if (dateParts.length !== 3) {
+    return false;
+  }
+
+  // Extract the year, month, and day from the array
+  const [year, month, day] = dateParts;
+
+  // Check if year, month, and day are numbers
+  if (isNaN(year) || isNaN(month) || isNaN(day)) {
+    return false;
+  }
+
+  // Optionally, you can add more checks here to validate the date further
+  // Example: Check if month is between 1 and 12 and day is between 1 and 31
+  const monthNum = parseInt(month, 10);
+  const dayNum = parseInt(day, 10);
+
+  if (monthNum < 1 || monthNum > 12 || dayNum < 1 || dayNum > 31) {
+    return false;
+  }
+
+  // If all checks pass, return true
+  return true;
+};
+
 export const transformDate = (dateString, format) => {
   // Split the input date string into an array
   const dateParts = dateString.split("-");

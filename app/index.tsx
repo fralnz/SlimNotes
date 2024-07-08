@@ -22,7 +22,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
       <AppHeader />
-      <EditNote selectedDate={selectedDate} />
+      <EditNote noteKey={selectedDate} />
     </SafeAreaView>
   );
 };

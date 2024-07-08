@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 import { TextInput, View, Text } from "react-native";
-import { getCurrentDate, dateToString, transformDate } from "@/app/utils/dateTools";
+import {getCurrentDate, dateToString, transformDate, checkIfDate} from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
 import styleNoteEditor from "../style/styleNoteEditor";
 
-const EditNote = ({ selectedDate }) => {
+const EditNote = ({ noteKey }) => {
   const [content, setContent] = useState("");
-  const [title, setTitle] = useState(selectedDate);
+  const [title, setTitle] = useState(noteKey);
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
 
   useEffect(() => {
     const fetchNote = async () => {
-      setTitle(transformDate(selectedDate, "DD-MM-YYYY"));
-      const answer = await getData(selectedDate);
+      if (checkIfDate(noteKey)) {
+      setTitle(transformDate(noteKey, "DD-MM-YYYY"));
+      } else{
+        setTitle(noteKey);
+      }
+      const answer = await getData(noteKey);
       if (answer) {
         setNote(answer);
         setContent(answer.content);
@@ -24,17 +28,17 @@ const EditNote = ({ selectedDate }) => {
     };
 
     fetchNote();
-  }, [selectedDate]);
+  }, [noteKey]);
 
   const saveNote = async (c) => {
     const note = {
-      title: selectedDate,
+      title: noteKey,
       content: c,
       lastedit: getCurrentDate(),
     };
     try {
-      await storeData(selectedDate, note);
-      const answer = await getData(selectedDate);
+      await storeData(noteKey, note);
+      const answer = await getData(noteKey);
       setNote(answer);
     } catch (e) {
       console.error("Error storing data:", e);
