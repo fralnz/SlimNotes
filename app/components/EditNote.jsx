@@ -65,19 +65,22 @@ const EditNote = ({ noteKey }) => {
   };
 
   return (
-    <View style={styleNoteEditor.noteContainer}>
-      <Text style={styleNoteEditor.noteTitle}>{title}</Text>
-      <Text>Title: {title} </Text>
-      <Text style={{ fontFamily: "Adamina-Regular" }}>
-        Saved content: {note?.content}
-      </Text>
-      <TextInput
-        onChangeText={onTextChange}
-        placeholder={"Insert text here"}
-        value={content}
-        multiline={true}
-      />
-    </View>
+      <View style={[styleNoteEditor.noteContainer, { flex: 1, marginTop: 20 }]}>
+        <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+        <Text>Title: {title} </Text>
+        <Text style={{ fontFamily: "Adamina-Regular" }}>
+          Saved content: {note?.content}
+        </Text>
+        <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
+          <TextInput
+              onChangeText={onTextChange}
+              placeholder={"Insert text here"}
+              value={content}
+              multiline={true}
+              style={{ flex: 1, width: '100%', textAlignVertical: 'top', fontFamily: "Adamina-Regular", fontSize: 16, marginTop: 20 }}
+          />
+        </View>
+      </View>
   );
 };
 

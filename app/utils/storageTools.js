@@ -52,3 +52,14 @@ export const getAllKeys = async () => {
   // example console.log result:
   // ['@MyApp_user', '@MyApp_key']
 };
+
+export const removeAll = async () => {
+  const keys = await getAllKeys();
+  try {
+    await AsyncStorage.multiRemove(keys);
+  } catch (e) {
+    // remove error
+  }
+
+  console.log("Removed all keys");
+};

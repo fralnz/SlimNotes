@@ -27,6 +27,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="Calendar" options={{ headerShown: false }} />
         <Stack.Screen name="NotesList" options={{ headerShown: false }} />
+        <Stack.Screen name="Settings" options={{ headerShown: false }} />
       </Stack>
     </NoteContextProvider>
   );
