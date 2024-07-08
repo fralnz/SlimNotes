@@ -1,7 +1,10 @@
 import { getAllKeys } from "./utils/storageTools"; // Ensure this returns a promise
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import { transformDate } from "./utils/dateTools";
+import CustomSwitch from "react-native-custom-switch-new";
+import styleAndroid from "./style/styleAndroid";
+import styleNotesList from "./style/styleNotesList";
 
 const NotesList = () => {
   const [keys, setKeys] = useState([]);
@@ -40,7 +43,24 @@ const NotesList = () => {
   }
 
   return (
-    <View>
+    <SafeAreaView
+      style={[styleAndroid.droidSafeArea, styleNotesList.notesPage]}
+    >
+      <CustomSwitch
+        switchLeftText={"Daily Notes"}
+        switchLeftTextStyle={{
+          color: "black",
+          fontSize: 16,
+          fontWeight: 600,
+        }}
+        switchRightText={"Custom Notes"}
+        switchRightTextStyle={{ color: "white", fontSize: 16, fontWeight: 600 }}
+        buttonWidth={40}
+        switchWidth={200}
+        buttonPadding={2}
+        switchBackgroundColor={"#0070F2"}
+        onSwitchBackgroundColor={"#EAECEF"}
+      />
       {keys ? (
         keys.map((key, index) => (
           <Text key={index}>{transformDate(key, "DD-MM-YYYY")}</Text>
@@ -48,7 +68,7 @@ const NotesList = () => {
       ) : (
         <Text>No notes found</Text>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
