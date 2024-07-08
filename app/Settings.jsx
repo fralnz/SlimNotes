@@ -1,4 +1,4 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
 import React from "react";
