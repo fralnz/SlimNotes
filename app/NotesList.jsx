@@ -39,28 +39,29 @@ const NotesList = () => {
       style={[styleAndroid.droidSafeArea, styleNotesList.notesPage]}
     >
       <CustomSwitch
-        switchLeftText={"Daily Notes"}
+        switchLeftText={"Custom Notes"}
         switchLeftTextStyle={{
-          color: "black",
+          color: "white",
           fontSize: 16,
           fontWeight: "600",
         }}
-        switchRightText={"Custom Notes"}
+        switchRightText={"Daily Notes"}
         switchRightTextStyle={{
-          color: "white",
+          color: "black",
           fontSize: 16,
           fontWeight: "600",
         }}
         buttonWidth={40}
         switchWidth={200}
         buttonPadding={2}
-        switchBackgroundColor={"#0070F2"}
-        onSwitchBackgroundColor={"#EAECEF"}
-        onSwitch={() => {
+        switchBackgroundColor={"#EAECEF"}
+        onSwitchBackgroundColor={"#0070F2"}
+        startOnLeft={true}
+        onSwitchReverse={() => {
           setVisibleKeys(dateKeys);
           setIsDate(true);
         }}
-        onSwitchReverse={() => {
+        onSwitch={() => {
           setVisibleKeys(customKeys);
           setIsDate(false);
         }}
