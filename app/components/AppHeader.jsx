@@ -27,7 +27,7 @@ const AppHeader = () => {
       </View>
       {/* Right side of the header */}
       <View>
-        <Pressable onPress={() => alert("pippa")}>
+        <Pressable onPress={() => router.push("/Settings")}>
           <MenuIcon width={32} height={32} style={styleHeader.icon} />
         </Pressable>
       </View>
