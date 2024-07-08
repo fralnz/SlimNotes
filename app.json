@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.fralnz.SlimNotes"
     },
     "web": {
       "bundler": "metro",
@@ -37,7 +38,14 @@
         }
       ]
     ],
-    "experiments": {
+    "experiments": {},
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "5e45065c-a67b-4875-8293-6ab7134291c6"
+      }
     }
   }
 }
