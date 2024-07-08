@@ -70,25 +70,27 @@ const NotesList = () => {
       />
       <Button title="Show modal" onPress={toggleModal} />
       <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
-      {visibleKeys.length > 0 ? (
-        visibleKeys.map((key, index) => (
-          <Pressable
-            key={key}
-            onPress={() => {
-              router.push({
-                pathname: "/",
-                params: { key: key },
-              });
-            }}
-          >
-            <Text key={index} style={styleNotesList.list}>
-              {isDate ? transformDate(key, "DD-MM-YYYY") : key}
-            </Text>
-          </Pressable>
-        ))
-      ) : (
-        <Text>No notes found</Text>
-      )}
+      <View style={styleNotesList.listContainer}>
+        {visibleKeys.length > 0 ? (
+          visibleKeys.map((key, index) => (
+            <Pressable
+              key={key}
+              onPress={() => {
+                router.push({
+                  pathname: "/",
+                  params: { key: key },
+                });
+              }}
+            >
+              <Text key={index} style={styleNotesList.list}>
+                {isDate ? transformDate(key, "DD-MM-YYYY") : key}
+              </Text>
+            </Pressable>
+          ))
+        ) : (
+          <Text>No notes found</Text>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
