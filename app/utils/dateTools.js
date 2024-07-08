@@ -60,13 +60,15 @@ export const transformDate = (dateString, format) => {
   const day = dateParts[2];
 
   // Format the date based on the specified format
-  if (format === "DD-MM-YYYY") {
+  if (format === "DD-MM-YYYY" || !format) {
     return `${day}-${month}-${year}`;
   } else if (format === "MM-DD-YYYY") {
     return `${month}-${day}-${year}`;
+  } else if (format === "YYYY-MM-DD") {
+    return `${year}-${month}-${day}`;
   } else {
     throw new Error(
-      'Invalid format specified. Use "DD-MM-YYYY" or "MM-DD-YYYY".',
+      'Invalid format specified. Use "DD-MM-YYYY", "MM-DD-YYYY" or "YYYY-MM-DD".',
     );
   }
 };
@@ -79,7 +81,7 @@ export const sortDates = (arr) => {
   // Process each element in the input array
   arr.forEach((dateStr) => {
     // Exclude elements that start with '@'
-    if (dateStr.startsWith('@')) {
+    if (dateStr.startsWith("@")) {
       return; // Skip this iteration
     }
 
@@ -111,4 +113,3 @@ export const sortDates = (arr) => {
     invalidDates,
   };
 };
-

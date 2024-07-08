@@ -4,7 +4,7 @@ import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
-import { getAllKeys } from "./utils/storageTools"; // Ensure this returns a promise
+import { getAllKeys, getData } from "./utils/storageTools"; // Ensure this returns a promise
 import { transformDate, sortDates } from "./utils/dateTools";
 import { useRouter } from "expo-router";
 
@@ -14,6 +14,7 @@ const NotesList = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [visibleKeys, setVisibleKeys] = useState([]);
   const [isDate, setIsDate] = useState(false);
+  const [dateFormat, setDateFormat] = useState("DD-MM-YYYY");
   const router = useRouter();
 
   const toggleModal = () => {
@@ -22,6 +23,8 @@ const NotesList = () => {
 
   useEffect(() => {
     const fetchKeys = async () => {
+      const df = await getData("@dateformat");
+      setDateFormat(df);
       const keysArray = await getAllKeys();
       const { validDates, invalidDates } = sortDates(keysArray);
       setDateKeys(validDates);
@@ -81,7 +84,7 @@ const NotesList = () => {
               }}
             >
               <Text key={index} style={styleNotesList.list}>
-                {isDate ? transformDate(key, "DD-MM-YYYY") : key}
+                {isDate ? transformDate(key, dateFormat) : key}
               </Text>
             </Pressable>
           ))
