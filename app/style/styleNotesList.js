@@ -7,8 +7,11 @@ const styleNotesList = StyleSheet.create({
     alignItems: "center",
     paddingTop: 64,
   },
-  switch: {
-    alignSelf: "center",
+  list: {
+    fontFamily: "Adamina-Regular",
+    fontSize: 16,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
   },
 });
 

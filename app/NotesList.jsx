@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, Button } from "react-native";
+import { View, Text, SafeAreaView, Button, Pressable } from "react-native";
 import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
 import { getAllKeys } from "./utils/storageTools"; // Ensure this returns a promise
 import { transformDate, sortDates } from "./utils/dateTools";
+import { useRouter } from "expo-router";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -13,6 +14,7 @@ const NotesList = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [visibleKeys, setVisibleKeys] = useState([]);
   const [isDate, setIsDate] = useState(false);
+  const router = useRouter();
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -70,9 +72,19 @@ const NotesList = () => {
       <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
       {visibleKeys.length > 0 ? (
         visibleKeys.map((key, index) => (
-          <Text key={index}>
-            {isDate ? transformDate(key, "DD-MM-YYYY") : key}
-          </Text>
+          <Pressable
+            key={key}
+            onPress={() => {
+              router.push({
+                pathname: "/",
+                params: { key: key },
+              });
+            }}
+          >
+            <Text key={index} style={styleNotesList.list}>
+              {isDate ? transformDate(key, "DD-MM-YYYY") : key}
+            </Text>
+          </Pressable>
         ))
       ) : (
         <Text>No notes found</Text>
