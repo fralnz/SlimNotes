@@ -1,52 +1,48 @@
 import { StyleSheet } from "react-native";
 
 const styleModal = StyleSheet.create({
-  modal: {
-    display: "flex",
-    flexDirection: "column",
-    alignContent: "center",
-    marginHorizontal: 50,
-    marginVertical: "20%", // Use percentage for better adaptability
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    minHeight: "30%", // Ensure the modal has a minimum height
-    maxHeight: "60%", // Restrict the modal height to avoid taking too much space
+    margin: 0,
+  },
+  modal: {
+    backgroundColor: "white",
+    padding: 35,
+    borderRadius: 20,
+    width: "80%", // Maintain the width of the modal
+    height: 200, // Decrease the height of the modal
+  },
+  modalContent: {
+    width: "100%",
+  },
+  textInput: {
+    width: "100%",
+    height: 50, // Maintain the height of the text input
+    borderColor: "gray",
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
   },
   buttonsContainer: {
-    display: "flex",
     flexDirection: "row",
-    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginTop: 10,
   },
   button: {
-    backgroundColor: "lightblue",
-    display: "flex",
-    flexDirection: "row",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    padding: 15, // Maintain the padding of the buttons
+    margin: 5,
     borderRadius: 5,
-    padding: 12,
-    marginHorizontal: 5, // Add margin to buttons for better spacing
   },
   buttonText: {
-    fontSize: 16,
-    alignSelf: 'center',
+    fontSize: 18, // Maintain the font size of the button text
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

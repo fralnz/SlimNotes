@@ -15,8 +15,8 @@ const NewNoteModal = ({ isVisible, toggleModal }) => {
   return (
       <Modal
           isVisible={isVisible}
-          animationIn="slideInUp"
-          animationOut="slideOutDown"
+          animationIn="fadeIn"
+          animationOut="fadeOut"
           backdropOpacity={0.5}
           style={styleModal.modalContainer}
       >
@@ -42,23 +42,22 @@ const NewNoteModal = ({ isVisible, toggleModal }) => {
                     });
                     toggleModal();
                   }}
-                  style={styleModal.button}
+                  style={[styleModal.button, {backgroundColor: "#0070F2"}]}
               >
-                <Text style={styleModal.buttonText}>Confirm</Text>
+                <Text style={[styleModal.buttonText, {color:"white"}]}>Confirm</Text>
               </Pressable>
               <Pressable
-                  onPress={() => {
-                    toggleModal();
-                  }}
-                  style={styleModal.button}
+                  onPress={toggleModal}
+                  style={[styleModal.button, {backgroundColor: "#EAECEF"}]}
               >
-                <Text style={styleModal.buttonText}>Cancel</Text>
+                <Text style={[styleModal.buttonText, {color:"black"}]}>Cancel</Text>
               </Pressable>
             </View>
           </View>
         </KeyboardAvoidingView>
       </Modal>
   );
+
 };
 
 export default NewNoteModal;
