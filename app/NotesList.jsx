@@ -68,8 +68,6 @@ const NotesList = () => {
           setIsDate(false);
         }}
       />
-      <Button title="Show modal" onPress={toggleModal} />
-      <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
       <View style={styleNotesList.listContainer}>
         {visibleKeys.length > 0 ? (
           visibleKeys.map((key, index) => (
@@ -91,6 +89,22 @@ const NotesList = () => {
           <Text>No notes found</Text>
         )}
       </View>
+      <Pressable onPress={toggleModal}>
+        <Text
+          style={{
+            backgroundColor: "#0070F2",
+            fontSize: 16,
+            color: "white",
+            padding: 15,
+            fontWeight: 600,
+            borderRadius: 20,
+            marginTop: 20,
+          }}
+        >
+          New Note
+        </Text>
+      </Pressable>
+      <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
     </SafeAreaView>
   );
 };
