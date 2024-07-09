@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Pressable, SafeAreaView } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, Pressable, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {Calendar, CalendarList} from "react-native-calendars";
+import { CalendarList } from "react-native-calendars";
 import { router } from "expo-router";
 import styleAndroid from "./style/styleAndroid";
 import BackIcon from "./components/icons/BackIcon";
 import styleHeader from "./style/styleHeader";
+import { getAllKeys as fetchAllKeys } from "./utils/storageTools";
 
 const CalendarHeader = () => (
-  <View style={styleHeader.header}>
-    <Pressable
-      onPress={() => {
-        router.push("/");
-      }}
-    >
-      <BackIcon width={32} height={32} />
-    </Pressable>
-  </View>
+    <View style={styleHeader.header}>
+      <Pressable onPress={() => router.push("/")}>
+        <BackIcon width={32} height={32} />
+      </Pressable>
+    </View>
 );
 
 const CalendarNotes = () => {
@@ -24,8 +21,7 @@ const CalendarNotes = () => {
   const [markedDates, setMarkedDates] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // Function to get all keys from AsyncStorage
-  const getAllKeys = async () => {
+  const getAllKeys = useCallback(async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
       setKeys(keys);
@@ -33,48 +29,49 @@ const CalendarNotes = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
-  // Function to mark dates
-  const markDates = (keys) => {
-    const newMarkedDates = {};
-    keys.forEach((key) => {
-      newMarkedDates[key] = {
+  const markDates = useCallback((keys) => {
+    const newMarkedDates = keys.reduce((acc, key) => {
+      acc[key] = {
         selected: true,
         marked: true,
-        selectedColor: "lightblue",
+        selectedColor: "#0070F2",
       };
-    });
+      return acc;
+    }, {});
     setMarkedDates(newMarkedDates);
-  };
+  }, []);
 
   useEffect(() => {
     getAllKeys();
-  }, []);
+  }, [getAllKeys]);
 
   return (
-    <SafeAreaView style={styleAndroid.droidSafeArea}>
-      <CalendarHeader />
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignSelf: "center",
-        }}
-      >
-        <CalendarList
-          onDayPress={(day) => {
-            setSelectedDate(day.dateString);
-            router.push({
-              pathname: "/",
-              params: { key: day.dateString },
-            });
-          }}
-          markedDates={markedDates}
-        />
-      </View>
-    </SafeAreaView>
+      <SafeAreaView style={styleAndroid.droidSafeArea}>
+        <CalendarHeader />
+        <View style={styles.calendarContainer}>
+          <CalendarList
+              onDayPress={(day) => {
+                setSelectedDate(day.dateString);
+                router.push({
+                  pathname: "/",
+                  params: { key: day.dateString },
+                });
+              }}
+              markedDates={markedDates}
+          />
+        </View>
+      </SafeAreaView>
   );
+};
+
+const styles = {
+  calendarContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignSelf: "center",
+  },
 };
 
 export default CalendarNotes;

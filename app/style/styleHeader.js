@@ -9,6 +9,7 @@ const styleHeader = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 16,
+    marginBottom: 24,
   },
   headerView: {
     display: "flex",
