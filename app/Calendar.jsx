@@ -7,14 +7,9 @@ import styleAndroid from "./style/styleAndroid";
 import BackIcon from "./components/icons/BackIcon";
 import styleHeader from "./style/styleHeader";
 import { getAllKeys as fetchAllKeys } from "./utils/storageTools";
-
-const CalendarHeader = () => (
-    <View style={styleHeader.header}>
-      <Pressable onPress={() => router.push("/")}>
-        <BackIcon width={32} height={32} />
-      </Pressable>
-    </View>
-);
+import BackHeader from "./components/BackHeader";
+import ToastConfig from "./utils/Toast";
+import Toast from "react-native-toast-message";
 
 const CalendarNotes = () => {
   const [keys, setKeys] = useState([]);
@@ -48,21 +43,23 @@ const CalendarNotes = () => {
   }, [getAllKeys]);
 
   return (
-      <SafeAreaView style={styleAndroid.droidSafeArea}>
-        <CalendarHeader />
-        <View style={styles.calendarContainer}>
-          <CalendarList
-              onDayPress={(day) => {
-                setSelectedDate(day.dateString);
-                router.push({
-                  pathname: "/",
-                  params: { key: day.dateString },
-                });
-              }}
-              markedDates={markedDates}
-          />
-        </View>
-      </SafeAreaView>
+    <SafeAreaView style={styleAndroid.droidSafeArea}>
+      <BackHeader />
+      <ToastConfig />
+      <Toast />
+      <View style={styles.calendarContainer}>
+        <CalendarList
+          onDayPress={(day) => {
+            setSelectedDate(day.dateString);
+            router.push({
+              pathname: "/",
+              params: { key: day.dateString },
+            });
+          }}
+          markedDates={markedDates}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

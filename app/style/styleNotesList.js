@@ -5,7 +5,6 @@ const styleNotesList = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: 64,
   },
   list: {
     fontFamily: "Adamina-Regular",

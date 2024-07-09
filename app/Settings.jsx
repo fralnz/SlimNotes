@@ -3,8 +3,11 @@ import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
 import React, { useEffect, useState } from "react";
 import DropDownPicker from "react-native-dropdown-picker";
-import { getData, removeAll, storeData } from "./utils/storageTools";
+import { removeAll, storeData } from "./utils/storageTools";
 import styleConfig from "./style/styleConfig";
+import BackHeader from "./components/BackHeader";
+import ToastConfig from "./utils/Toast";
+import Toast from "react-native-toast-message";
 
 const Settings = () => {
   const [dfopen, setDfopen] = useState(false);
@@ -22,6 +25,9 @@ const Settings = () => {
 
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
+      <ToastConfig />
+      <Toast />
+      <BackHeader />
       <Text
         style={[
           styleNoteEditor.noteTitle,
