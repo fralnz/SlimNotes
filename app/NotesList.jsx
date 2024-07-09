@@ -7,6 +7,8 @@ import NewNoteModal from "./components/NewNoteModal";
 import { getAllKeys, getData } from "./utils/storageTools"; // Ensure this returns a promise
 import { transformDate, sortDates } from "./utils/dateTools";
 import { useRouter } from "expo-router";
+import ToastConfig from "./utils/Toast";
+import Toast from "react-native-toast-message";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -43,6 +45,8 @@ const NotesList = () => {
     <SafeAreaView
       style={[styleAndroid.droidSafeArea, styleNotesList.notesPage]}
     >
+      <ToastConfig />
+      <Toast />
       <CustomSwitch
         switchLeftText={"Custom Notes"}
         switchLeftTextStyle={{
