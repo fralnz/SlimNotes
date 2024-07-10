@@ -8,10 +8,13 @@ import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import ToastConfig from "./utils/Toast";
 import Toast from "react-native-toast-message";
+import CustomSwitch from "react-native-custom-switch-new";
+import { useNoteContext } from "./hooks/notes.hook";
 
 const Settings = () => {
   const [dfopen, setDfopen] = useState(false);
   const [dfvalue, setDfvalue] = useState(null);
+  const { savedEnabled, setSavedEnabled } = useNoteContext();
   const [dfitems, setDfitems] = useState([
     { label: "DD-MM-YYYY", value: "DD-MM-YYYY" },
     { label: "MM-DD-YYYY", value: "MM-DD-YYYY" },
@@ -21,6 +24,11 @@ const Settings = () => {
   const setDateFormat = async (value) => {
     setDfvalue(value);
     await storeData("@dateformat", value);
+  };
+
+  const storeSaveEnabled = async (value) => {
+    await storeData("@savedenabled", value);
+    setSavedEnabled(value);
   };
 
   return (
@@ -52,6 +60,24 @@ const Settings = () => {
           }}
         />
       </View>
+
+      <CustomSwitch
+        buttonWidth={40}
+        switchWidth={200}
+        buttonPadding={2}
+        switchBackgroundColor={"#EAECEF"}
+        onSwitchBackgroundColor={"#0070F2"}
+        startOnLeft={savedEnabled}
+        onSwitchReverse={() => {
+          storeSaveEnabled(false);
+        }}
+        onSwitch={() => {
+          storeSaveEnabled(true);
+        }}
+      />
+
+      {JSON.stringify(savedEnabled)}
+
       <Pressable
         style={{ zIndex: -5 }}
         onPress={() => {

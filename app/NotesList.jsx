@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, Button, Pressable } from "react-native";
+import { View, Text, SafeAreaView, Pressable } from "react-native";
 import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
-import { getAllKeys, getData } from "./utils/storageTools"; // Ensure this returns a promise
+import { getAllKeys, getData } from "./utils/storageTools";
 import { transformDate, sortDates } from "./utils/dateTools";
-import { router, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import ToastConfig from "./utils/Toast";
 import Toast from "react-native-toast-message";
 import BackHeader from "./components/BackHeader";
