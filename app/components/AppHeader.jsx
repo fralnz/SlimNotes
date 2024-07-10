@@ -6,8 +6,10 @@ import { router } from "expo-router";
 import { ListIcon } from "@/app/components/icons/ListIcon";
 import { CheckIcon } from "@/app/components/icons/CheckIcon";
 import { SyncIcon } from "@/app/components/icons/SyncIcon";
+import { useNoteContext } from "@/app/hooks/notes.hook";
 
-const AppHeader = ({status}) => {
+const AppHeader = () => {
+  const { saved } = useNoteContext();
   return (
     <SafeAreaView style={styleHeader.header}>
       {/* Left side of the header */}
@@ -29,7 +31,9 @@ const AppHeader = ({status}) => {
       </View>
       {/* Right side of the header */}
       <View style={styleHeader.headerView}>
-        <Pressable style={{marginRight:16}}>{status ? <CheckIcon /> : <SyncIcon />}</Pressable>
+        <Pressable style={{ marginRight: 16 }}>
+          {saved ? <CheckIcon /> : <SyncIcon />}
+        </Pressable>
         <Pressable onPress={() => router.push("/Settings")}>
           <MenuIcon width={32} height={32} style={styleHeader.icon} />
         </Pressable>

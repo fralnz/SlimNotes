@@ -9,13 +9,14 @@ import {
 import { storeData, getData } from "@/app/utils/storageTools";
 import styleNoteEditor from "../style/styleNoteEditor";
 import AppHeader from "@/app/components/AppHeader";
+import { useNoteContext } from "@/app/hooks/notes.hook";
 
 const EditNote = ({ noteKey }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState(noteKey);
   const [note, setNote] = useState(null);
-  const [saved, setSaved] = useState(true)
   const timerRef = useRef(null);
+  const { setSaved } = useNoteContext();
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -54,7 +55,7 @@ const EditNote = ({ noteKey }) => {
   };
 
   const onTextChange = (e) => {
-    setSaved(false)
+    setSaved(false);
     setContent(e);
 
     if (timerRef.current) {
@@ -63,25 +64,32 @@ const EditNote = ({ noteKey }) => {
 
     timerRef.current = setTimeout(() => {
       saveNote(e);
-      setSaved(true)
+      setSaved(true);
       timerRef.current = null;
     }, 500);
   };
 
   return (
-      <View style={[styleNoteEditor.noteContainer, { flex: 1}]}>
-        <AppHeader status={saved}/>
-        <Text style={styleNoteEditor.noteTitle}>{title}</Text>
-        <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
-          <TextInput
-              onChangeText={onTextChange}
-              placeholder={"Insert text here"}
-              value={content}
-              multiline={true}
-              style={{ flex: 1, width: '100%', textAlignVertical: 'top', fontFamily: "Adamina-Regular", fontSize: 16, marginTop: 20 }}
-          />
-        </View>
+    <View style={[styleNoteEditor.noteContainer, { flex: 1 }]}>
+      <AppHeader />
+      <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+      <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
+        <TextInput
+          onChangeText={onTextChange}
+          placeholder={"Insert text here"}
+          value={content}
+          multiline={true}
+          style={{
+            flex: 1,
+            width: "100%",
+            textAlignVertical: "top",
+            fontFamily: "Adamina-Regular",
+            fontSize: 16,
+            marginTop: 20,
+          }}
+        />
       </View>
+    </View>
   );
 };
 
