@@ -1,14 +1,12 @@
 import { Pressable, SafeAreaView, Text, View } from "react-native";
 import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
-import React, { useEffect, useState } from "react";
-import { removeAll, storeData } from "./utils/storageTools";
+import React from "react";
+import { removeAll } from "./utils/storageTools";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import ToastConfig from "./utils/Toast";
 import Toast from "react-native-toast-message";
-import CustomSwitch from "react-native-custom-switch-new";
-import { useNoteContext } from "./hooks/notes.hook";
 import { DatePicker, SavedSwitch } from "./components/SettingsComponents";
 
 const Settings = () => {
@@ -25,7 +23,7 @@ const Settings = () => {
       >
         Settings
       </Text>
-      <View style={styleConfig.sectionContainer}>
+      <View style={[styleConfig.sectionContainer, { zIndex: 9 }]}>
         <Text style={styleConfig.sectionText}>Date Format:</Text>
         <DatePicker />
       </View>

@@ -17,10 +17,10 @@ const EditNote = ({ noteKey }) => {
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
   const { setSaved, savedEnabled } = useNoteContext();
+  const { dateFormat } = useNoteContext();
 
   useEffect(() => {
     const fetchNote = async () => {
-      const dateFormat = await getData("@dateformat");
       if (checkIfDate(noteKey)) {
         setTitle(transformDate(noteKey, dateFormat));
       } else {

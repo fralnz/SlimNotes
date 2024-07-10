@@ -10,6 +10,7 @@ import { useRouter } from "expo-router";
 import ToastConfig from "./utils/Toast";
 import Toast from "react-native-toast-message";
 import BackHeader from "./components/BackHeader";
+import { useNoteContext } from "./hooks/notes.hook";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -17,8 +18,8 @@ const NotesList = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [visibleKeys, setVisibleKeys] = useState([]);
   const [isDate, setIsDate] = useState(false);
-  const [dateFormat, setDateFormat] = useState("DD-MM-YYYY");
   const router = useRouter();
+  const { dateFormat } = useNoteContext();
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -26,8 +27,6 @@ const NotesList = () => {
 
   useEffect(() => {
     const fetchKeys = async () => {
-      const df = await getData("@dateformat");
-      setDateFormat(df);
       const keysArray = await getAllKeys();
       const { validDates, invalidDates } = sortDates(keysArray);
       setDateKeys(validDates);

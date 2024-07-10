@@ -4,11 +4,14 @@ import { getData } from "@/app/utils/storageTools";
 export const useNotes = () => {
   const [saved, setSaved] = useState(true);
   const [savedEnabled, setSavedEnabled] = useState(true);
+  const [dateFormat, setDateFormat] = useState(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
       const se = await getData("@savedenabled");
+      const df = await getData("@dateformat");
       setSavedEnabled(se);
+      setDateFormat(df);
     };
     fetchSettings();
   }, []);
@@ -18,6 +21,8 @@ export const useNotes = () => {
     setSaved,
     savedEnabled,
     setSavedEnabled,
+    dateFormat,
+    setDateFormat,
   };
 };
 

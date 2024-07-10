@@ -5,6 +5,7 @@ import CustomSwitch from "react-native-custom-switch-new";
 import { useNoteContext } from "../hooks/notes.hook";
 
 export const DatePicker = () => {
+  const { dateFormat, setDateFormat } = useNoteContext();
   const [dfopen, setDfopen] = useState(false);
   const [dfvalue, setDfvalue] = useState(null);
   const [dfitems, setDfitems] = useState([
@@ -13,9 +14,10 @@ export const DatePicker = () => {
     { label: "YYYY-MM-DD", value: "YYYY-MM-DD" },
   ]);
 
-  const setDateFormat = async (value) => {
+  const setDF = async (value) => {
     setDfvalue(value);
     await storeData("@dateformat", value);
+    setDateFormat(value);
   };
   return (
     <DropDownPicker
@@ -26,7 +28,7 @@ export const DatePicker = () => {
       setValue={setDfvalue}
       setItems={setDfitems}
       placeholder={"Select date format"}
-      onChangeValue={setDateFormat}
+      onChangeValue={setDF}
       containerStyle={{
         width: "50%",
       }}
