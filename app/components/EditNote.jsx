@@ -16,7 +16,7 @@ const EditNote = ({ noteKey }) => {
   const [title, setTitle] = useState(noteKey);
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
-  const { setSaved } = useNoteContext();
+  const { setSaved, savedEnabled } = useNoteContext();
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -74,6 +74,7 @@ const EditNote = ({ noteKey }) => {
       <AppHeader />
       <Text style={styleNoteEditor.noteTitle}>{title}</Text>
       <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
+        <Text>{savedEnabled}</Text>
         <TextInput
           onChangeText={onTextChange}
           placeholder={"Insert text here"}
