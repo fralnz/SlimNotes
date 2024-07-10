@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 
 export const useNotes = () => {
-  const [saved, setSaved] = useState([]);
+  const [saved, setSaved] = useState(true);
 
   return {
     saved,
