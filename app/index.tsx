@@ -56,7 +56,6 @@ const HomeScreen = () => {
       <SafeAreaView style={styleAndroid.droidSafeArea}>
         <ToastConfig />
         <Toast />
-        <AppHeader />
         <EditNote noteKey={selectedDate} />
       </SafeAreaView>
   );

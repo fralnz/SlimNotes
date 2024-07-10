@@ -8,11 +8,13 @@ import {
 } from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
 import styleNoteEditor from "../style/styleNoteEditor";
+import AppHeader from "@/app/components/AppHeader";
 
 const EditNote = ({ noteKey }) => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState(noteKey);
   const [note, setNote] = useState(null);
+  const [saved, setSaved] = useState(true);
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -52,6 +54,7 @@ const EditNote = ({ noteKey }) => {
   };
 
   const onTextChange = (e) => {
+    setSaved(false);
     setContent(e);
 
     if (timerRef.current) {
@@ -61,10 +64,13 @@ const EditNote = ({ noteKey }) => {
     timerRef.current = setTimeout(() => {
       saveNote(e);
       timerRef.current = null;
+      setSaved(true);
     }, 500);
   };
 
   return (
+    <View>
+      <AppHeader />
       <View style={[styleNoteEditor.noteContainer, { flex: 1, marginTop: 20 }]}>
         <Text style={styleNoteEditor.noteTitle}>{title}</Text>
         <Text>Title: {title} </Text>
@@ -72,15 +78,24 @@ const EditNote = ({ noteKey }) => {
           Saved content: {note?.content}
         </Text>
         <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
+          {JSON.stringify(saved)}
           <TextInput
-              onChangeText={onTextChange}
-              placeholder={"Insert text here"}
-              value={content}
-              multiline={true}
-              style={{ flex: 1, width: '100%', textAlignVertical: 'top', fontFamily: "Adamina-Regular", fontSize: 16, marginTop: 20 }}
+            onChangeText={onTextChange}
+            placeholder={"Insert text here"}
+            value={content}
+            multiline={true}
+            style={{
+              flex: 1,
+              width: "100%",
+              textAlignVertical: "top",
+              fontFamily: "Adamina-Regular",
+              fontSize: 16,
+              marginTop: 20,
+            }}
           />
         </View>
       </View>
+    </View>
   );
 };
 
