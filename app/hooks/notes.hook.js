@@ -1,8 +1,17 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, createContext, useContext, useEffect } from "react";
+import { getData } from "@/app/utils/storageTools";
 
 export const useNotes = () => {
   const [saved, setSaved] = useState(true);
   const [savedEnabled, setSavedEnabled] = useState(true);
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      const se = await getData("@savedenabled");
+      setSavedEnabled(se);
+    };
+    fetchSettings();
+  }, []);
 
   return {
     saved,

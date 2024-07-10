@@ -76,7 +76,6 @@ const Settings = () => {
         }}
       />
 
-      {JSON.stringify(savedEnabled)}
 
       <Pressable
         style={{ zIndex: -5 }}

@@ -25,14 +25,6 @@ const HomeScreen = () => {
     }
   }, [key]);
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      const se = await getData("@savedenabled");
-      setSavedEnabled(se);
-    };
-    fetchSettings();
-  }, []);
-
   useBackHandler(); // Use the custom hook
 
   return (
