@@ -14,6 +14,6 @@ Here's a list of all the features
 
 - [ ] implement gestures
 
-- [ ] view all daily notes in a calendar
+- [x] view all daily notes in a calendar
 
 - [ ] customization and theming options
