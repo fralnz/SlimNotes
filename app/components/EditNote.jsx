@@ -1,25 +1,41 @@
 import React, { useState, useEffect, useRef } from "react";
-import { TextInput, View, Text } from "react-native";
+import { TextInput, View, Text, PanResponder } from "react-native";
 import {
   getCurrentDate,
   dateToString,
   transformDate,
   checkIfDate,
+  getPreviousDay,
+  getNextDay,
 } from "@/app/utils/dateTools";
 import { storeData, getData } from "@/app/utils/storageTools";
 import styleNoteEditor from "../style/styleNoteEditor";
 import AppHeader from "@/app/components/AppHeader";
 import { useNoteContext } from "@/app/hooks/notes.hook";
+import { useGlobalSearchParams, useRouter } from "expo-router";
 
-const EditNote = ({ noteKey }) => {
+const EditNote = () => {
   const [content, setContent] = useState("");
-  const [title, setTitle] = useState(noteKey);
+  const [title, setTitle] = useState("");
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
   const { setSaved, savedEnabled } = useNoteContext();
   const { dateFormat } = useNoteContext();
+  const [noteKey, setNoteKey] = useState(dateToString(getCurrentDate()));
+  const noteKeyRef = useRef(noteKey); // Add this line
+  const params = useGlobalSearchParams();
+  const key = Array.isArray(params.key) ? params.key[0] : params.key;
+  const router = useRouter();
+
+  const MIN_SWIPE_DISTANCE = 10;
 
   useEffect(() => {
+    if (key) setNoteKey(key);
+  }, [key]);
+
+  useEffect(() => {
+    noteKeyRef.current = noteKey; // Add this line
+    console.log("notekey", noteKey);
     const fetchNote = async () => {
       if (checkIfDate(noteKey)) {
         setTitle(transformDate(noteKey, dateFormat));
@@ -69,12 +85,37 @@ const EditNote = ({ noteKey }) => {
     }, 500);
   };
 
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderMove: (evt, gestureState) => {
+        // Logic to detect swipe direction
+      },
+      onPanResponderRelease: (evt, gestureState) => {
+        if (!checkIfDate(noteKeyRef.current)) {
+        } else if (gestureState.dy > MIN_SWIPE_DISTANCE) {
+          console.log("Swiped down");
+          console.log("NK", noteKeyRef.current); // Change this line
+          const prevDay = getPreviousDay(noteKeyRef.current); // Change this line
+          router.setParams({ key: prevDay });
+        } else if (gestureState.dy < -MIN_SWIPE_DISTANCE) {
+          console.log("Swiped up");
+          console.log("NK", noteKeyRef.current); // Change this line
+          const nextDay = getNextDay(noteKeyRef.current); // Change this line
+          router.setParams({ key: nextDay });
+        }
+      },
+    }),
+  ).current;
+
   return (
     <View style={[styleNoteEditor.noteContainer, { flex: 1 }]}>
       <AppHeader />
-      <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+      <View {...panResponder.panHandlers}>
+        <Text style={styleNoteEditor.noteTitle}>{title}</Text>
+      </View>
       <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
-        <Text>{savedEnabled}</Text>
         <TextInput
           onChangeText={onTextChange}
           placeholder={"Insert text here"}
