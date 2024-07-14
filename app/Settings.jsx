@@ -5,15 +5,11 @@ import React from "react";
 import { removeAll } from "./utils/storageTools";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
-import ToastConfig from "./utils/Toast";
-import Toast from "react-native-toast-message";
 import { DatePicker, SavedSwitch } from "./components/SettingsComponents";
 
 const Settings = () => {
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
-      <ToastConfig />
-      <Toast />
       <BackHeader />
       <Text
         style={[

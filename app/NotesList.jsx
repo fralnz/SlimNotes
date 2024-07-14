@@ -4,11 +4,9 @@ import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
-import { getAllKeys, getData } from "./utils/storageTools";
+import { getAllKeys } from "./utils/storageTools";
 import { transformDate, sortDates } from "./utils/dateTools";
 import { useRouter } from "expo-router";
-import ToastConfig from "./utils/Toast";
-import Toast from "react-native-toast-message";
 import BackHeader from "./components/BackHeader";
 import { useNoteContext } from "./hooks/notes.hook";
 
@@ -46,8 +44,6 @@ const NotesList = () => {
       style={[styleAndroid.droidSafeArea, styleNotesList.notesPage]}
     >
       <BackHeader />
-      <ToastConfig />
-      <Toast />
       <CustomSwitch
         switchLeftText={"Custom Notes"}
         switchLeftTextStyle={{

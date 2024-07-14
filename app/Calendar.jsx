@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { View, Pressable, SafeAreaView } from "react-native";
+import { View, SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CalendarList } from "react-native-calendars";
 import { router } from "expo-router";
 import styleAndroid from "./style/styleAndroid";
 import BackHeader from "./components/BackHeader";
-import ToastConfig from "./utils/Toast";
-import Toast from "react-native-toast-message";
 
 const CalendarNotes = () => {
   const [keys, setKeys] = useState([]);
@@ -42,8 +40,6 @@ const CalendarNotes = () => {
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
       <BackHeader />
-      <ToastConfig />
-      <Toast />
       <View style={styles.calendarContainer}>
         <CalendarList
           onDayPress={(day) => {
