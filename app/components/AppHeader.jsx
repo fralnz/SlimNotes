@@ -16,14 +16,14 @@ const AppHeader = () => {
       <View style={styleHeader.headerView}>
         <Pressable
           onPress={() => {
-            router.push("/NotesList");
+            router.navigate("/NotesList");
           }}
         >
           <ListIcon width={32} height={32} style={styleHeader.icon} />
         </Pressable>
         <Pressable
           onPress={() => {
-            router.push("/Calendar");
+            router.navigate("/Calendar");
           }}
         >
           <CalendarIcon width={32} height={32} style={styleHeader.icon} />
@@ -36,7 +36,7 @@ const AppHeader = () => {
             {saved ? <CheckIcon /> : <SyncIcon />}
           </Pressable>
         )}
-        <Pressable onPress={() => router.push("/Settings")}>
+        <Pressable onPress={() => router.navigate("/Settings")}>
           <MenuIcon width={32} height={32} style={styleHeader.icon} />
         </Pressable>
       </View>

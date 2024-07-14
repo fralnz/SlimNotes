@@ -8,7 +8,7 @@ import Toast from "react-native-toast-message";
 
 const BackHeader = () => (
   <View style={styleHeader.header}>
-    <Pressable onPress={() => router.push("/")}>
+    <Pressable onPress={() => router.navigate("/")}>
       <BackIcon width={32} height={32} />
     </Pressable>
   </View>
