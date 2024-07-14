@@ -113,3 +113,15 @@ export const sortDates = (arr) => {
     invalidDates,
   };
 };
+
+export const getPreviousDay = (dateString) => {
+  let date = new Date(dateString);
+  date.setDate(date.getDate() - 1);
+  return date.toISOString().split("T")[0];
+};
+
+export const getNextDay = (dateString) => {
+  let date = new Date(dateString);
+  date.setDate(date.getDate() + 1);
+  return date.toISOString().split("T")[0];
+};
