@@ -9,6 +9,7 @@ import { transformDate, sortDates } from "./utils/dateTools";
 import { useRouter } from "expo-router";
 import BackHeader from "./components/BackHeader";
 import { useNoteContext } from "./hooks/notes.hook";
+import { FlashList } from "@shopify/flash-list";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -74,23 +75,17 @@ const NotesList = () => {
       />
       <View style={styleNotesList.listContainer}>
         {visibleKeys.length > 0 ? (
-          visibleKeys.map((key, index) => (
-            <Pressable
-              key={key}
-              onPress={() => {
-                router.push({
-                  pathname: "/",
-                  params: { key: key },
-                });
-              }}
-            >
-              <Text key={index} style={styleNotesList.list}>
-                {isDate ? transformDate(key, dateFormat) : key}
-              </Text>
-            </Pressable>
-          ))
+            <FlashList
+                data={visibleKeys}
+                renderItem={({ item }) => (
+                    <Text style={styleNotesList.list}>
+                      {isDate ? transformDate(item, dateFormat) : item}
+                    </Text>
+                )}
+                estimatedItemSize={200}
+            />
         ) : (
-          <Text>No notes found</Text>
+            <Text style={styleNotesList.list}>No notes found</Text>
         )}
       </View>
       <Pressable onPress={toggleModal}>
