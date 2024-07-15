@@ -6,10 +6,11 @@ import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
 import { getAllKeys } from "./utils/storageTools";
 import { transformDate, sortDates } from "./utils/dateTools";
-import { useRouter } from "expo-router";
+import { router, useRouter } from "expo-router";
 import BackHeader from "./components/BackHeader";
 import { useNoteContext } from "./hooks/notes.hook";
 import { FlashList } from "@shopify/flash-list";
+import { useIsFocused } from "@react-navigation/native";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -19,6 +20,7 @@ const NotesList = () => {
   const [isDate, setIsDate] = useState(false);
   const router = useRouter();
   const { dateFormat } = useNoteContext();
+  const isFocused = useIsFocused();
 
   const toggleModal = () => {
     setModalVisible(!modalVisible);
@@ -34,7 +36,7 @@ const NotesList = () => {
     };
 
     fetchKeys();
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     setVisibleKeys(customKeys);
@@ -75,17 +77,26 @@ const NotesList = () => {
       />
       <View style={styleNotesList.listContainer}>
         {visibleKeys.length > 0 ? (
-            <FlashList
-                data={visibleKeys}
-                renderItem={({ item }) => (
-                    <Text style={styleNotesList.list}>
-                      {isDate ? transformDate(item, dateFormat) : item}
-                    </Text>
-                )}
-                estimatedItemSize={200}
-            />
+          <FlashList
+            data={visibleKeys}
+            renderItem={({ item }) => (
+              <Pressable
+                onPress={() =>
+                  router.navigate({
+                    pathname: "/",
+                    params: { key: item },
+                  })
+                }
+              >
+                <Text style={styleNotesList.list}>
+                  {isDate ? transformDate(item, dateFormat) : item}
+                </Text>
+              </Pressable>
+            )}
+            estimatedItemSize={200}
+          />
         ) : (
-            <Text style={styleNotesList.list}>No notes found</Text>
+          <Text style={styleNotesList.list}>No notes found</Text>
         )}
       </View>
       <Pressable onPress={toggleModal}>

@@ -16,7 +16,7 @@ const styleNotesList = StyleSheet.create({
     width: "auto"
   },
   listContainer:{
-    display: "flex",
+    flex: 1,
     width: "100%"
   }
 });

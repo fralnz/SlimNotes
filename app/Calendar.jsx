@@ -5,11 +5,13 @@ import { CalendarList } from "react-native-calendars";
 import { router } from "expo-router";
 import styleAndroid from "./style/styleAndroid";
 import BackHeader from "./components/BackHeader";
+import { useIsFocused } from "@react-navigation/native";
 
 const CalendarNotes = () => {
   const [keys, setKeys] = useState([]);
   const [markedDates, setMarkedDates] = useState({});
   const [selectedDate, setSelectedDate] = useState(null);
+  const isFocused = useIsFocused();
 
   const getAllKeys = useCallback(async () => {
     try {
@@ -35,7 +37,7 @@ const CalendarNotes = () => {
 
   useEffect(() => {
     getAllKeys();
-  }, [getAllKeys]);
+  }, [getAllKeys, isFocused]);
 
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
@@ -44,7 +46,7 @@ const CalendarNotes = () => {
         <CalendarList
           onDayPress={(day) => {
             setSelectedDate(day.dateString);
-            router.push({
+            router.navigate({
               pathname: "/",
               params: { key: day.dateString },
             });

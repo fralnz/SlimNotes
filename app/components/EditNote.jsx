@@ -13,6 +13,7 @@ import styleNoteEditor from "../style/styleNoteEditor";
 import AppHeader from "@/app/components/AppHeader";
 import { useNoteContext } from "@/app/hooks/notes.hook";
 import { useGlobalSearchParams, useRouter } from "expo-router";
+import { useIsFocused } from "@react-navigation/native";
 
 const EditNote = () => {
   const [content, setContent] = useState("");
@@ -26,6 +27,7 @@ const EditNote = () => {
   const params = useGlobalSearchParams();
   const key = Array.isArray(params.key) ? params.key[0] : params.key;
   const router = useRouter();
+  const isFocused = useIsFocused();
 
   const MIN_SWIPE_DISTANCE = 10;
 
@@ -53,7 +55,7 @@ const EditNote = () => {
     };
 
     fetchNote();
-  }, [noteKey]);
+  }, [noteKey, isFocused]);
 
   const saveNote = async (c) => {
     const note = {
