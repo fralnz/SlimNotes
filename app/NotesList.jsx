@@ -6,7 +6,7 @@ import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
 import { getAllKeys, removeValue } from "./hooks/storage.hooks";
 import { transformDate, sortDates } from "./hooks/date.hooks";
-import { router, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import BackHeader from "./components/BackHeader";
 import { useNoteContext } from "./hooks/notes.hook";
 import { FlashList } from "@shopify/flash-list";
@@ -145,7 +145,7 @@ const NotesList = () => {
               >
                 <Pressable
                   onPress={() =>
-                    router.navigate({
+                    router.push({
                       pathname: "/",
                       params: { key: item },
                     })
