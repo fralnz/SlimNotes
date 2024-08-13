@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, Pressable } from "react-native";
+import { Text, SafeAreaView, Pressable, Alert, Animated } from "react-native";
 import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
@@ -11,6 +11,8 @@ import BackHeader from "./components/BackHeader";
 import { useNoteContext } from "./hooks/notes.hook";
 import { FlashList } from "@shopify/flash-list";
 import { useIsFocused } from "@react-navigation/native";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -41,6 +43,48 @@ const NotesList = () => {
   useEffect(() => {
     setVisibleKeys(customKeys);
   }, [customKeys]);
+
+  const renderLeftActions = (progress, dragX, key) => {
+    const translateX = dragX.interpolate({
+      inputRange: [0, 100],
+      outputRange: [-100, 0],
+      extrapolate: "clamp",
+    });
+
+    return (
+      <Animated.View
+        style={{
+          transform: [{ translateX }],
+          backgroundColor: "red",
+          justifyContent: "center",
+          alignItems: "flex-start",
+          paddingHorizontal: 20,
+          width: 100,
+          height: "100%",
+        }}
+      >
+        <Pressable onPress={() => handleDelete(key)}>
+          <Text style={{ color: "white", fontWeight: "bold" }}>Delete</Text>
+        </Pressable>
+      </Animated.View>
+    );
+  };
+
+  const handleDelete = (key) => {
+    Alert.alert("Delete", `Are you sure you want to delete ${key}?`, [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: () => {
+          console.log(`Deleted: ${key}`);
+        },
+      },
+    ]);
+  };
 
   return (
     <SafeAreaView
@@ -75,30 +119,36 @@ const NotesList = () => {
           setIsDate(false);
         }}
       />
-      <View style={styleNotesList.listContainer}>
+      <GestureHandlerRootView style={styleNotesList.listContainer}>
         {visibleKeys.length > 0 ? (
           <FlashList
             data={visibleKeys}
             renderItem={({ item }) => (
-              <Pressable
-                onPress={() =>
-                  router.navigate({
-                    pathname: "/",
-                    params: { key: item },
-                  })
+              <Swipeable
+                renderLeftActions={(progress, dragX) =>
+                  renderLeftActions(progress, dragX, item)
                 }
               >
-                <Text style={styleNotesList.list}>
-                  {isDate ? transformDate(item, dateFormat) : item}
-                </Text>
-              </Pressable>
+                <Pressable
+                  onPress={() =>
+                    router.navigate({
+                      pathname: "/",
+                      params: { key: item },
+                    })
+                  }
+                >
+                  <Text style={styleNotesList.list}>
+                    {isDate ? transformDate(item, dateFormat) : item}
+                  </Text>
+                </Pressable>
+              </Swipeable>
             )}
             estimatedItemSize={200}
           />
         ) : (
           <Text style={styleNotesList.list}>No notes found</Text>
         )}
-      </View>
+      </GestureHandlerRootView>
       <Pressable onPress={toggleModal}>
         <Text
           style={{
