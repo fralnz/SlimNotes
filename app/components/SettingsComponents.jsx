@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { storeData } from "../utils/storageTools";
+import { storeData } from "../hooks/storage.hooks";
 import DropDownPicker from "react-native-dropdown-picker";
 import CustomSwitch from "react-native-custom-switch-new";
 import { useNoteContext } from "../hooks/notes.hook";

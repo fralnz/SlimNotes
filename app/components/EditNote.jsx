@@ -7,8 +7,8 @@ import {
   checkIfDate,
   getPreviousDay,
   getNextDay,
-} from "@/app/utils/dateTools";
-import { storeData, getData } from "@/app/utils/storageTools";
+} from "@/app/hooks/date.hooks";
+import { storeData, getData } from "@/app/hooks/storage.hooks";
 import styleNoteEditor from "../style/styleNoteEditor";
 import AppHeader from "@/app/components/AppHeader";
 import { useNoteContext } from "@/app/hooks/notes.hook";

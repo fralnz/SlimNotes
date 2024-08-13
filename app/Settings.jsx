@@ -2,7 +2,7 @@ import { Pressable, SafeAreaView, Text, View } from "react-native";
 import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
 import React from "react";
-import { removeAll } from "./utils/storageTools";
+import { removeAll } from "./hooks/storage.hooks";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import { DatePicker, SavedSwitch } from "./components/SettingsComponents";

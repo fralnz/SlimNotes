@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
-import { getData } from "@/app/utils/storageTools";
+import { getData } from "@/app/hooks/storage.hooks";
 
 export const useNotes = () => {
   const [saved, setSaved] = useState(true);
