@@ -4,7 +4,7 @@ import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
-import { getAllKeys } from "./hooks/storage.hooks";
+import { getAllKeys, removeValue } from "./hooks/storage.hooks";
 import { transformDate, sortDates } from "./hooks/date.hooks";
 import { router, useRouter } from "expo-router";
 import BackHeader from "./components/BackHeader";
@@ -29,21 +29,50 @@ const NotesList = () => {
     setModalVisible(!modalVisible);
   };
 
-  useEffect(() => {
-    const fetchKeys = async () => {
-      const keysArray = await getAllKeys();
-      const { validDates, invalidDates } = sortDates(keysArray);
-      setDateKeys(validDates);
-      setCustomKeys(invalidDates);
-      setVisibleKeys(customKeys);
-    };
+  const fetchKeys = async () => {
+    const keysArray = await getAllKeys();
+    const { validDates, invalidDates } = sortDates(keysArray);
+    setDateKeys(validDates);
+    setCustomKeys(invalidDates);
+    setVisibleKeys(isDate ? validDates : invalidDates);
+  };
 
+  useEffect(() => {
     fetchKeys();
   }, [isFocused]);
 
+  // Ensure visibleKeys updates correctly when customKeys or dateKeys change
   useEffect(() => {
-    setVisibleKeys(customKeys);
-  }, [customKeys]);
+    setVisibleKeys(isDate ? dateKeys : customKeys);
+  }, [customKeys, dateKeys]);
+
+  const handleDelete = async (key) => {
+    Alert.alert("Delete", `Are you sure you want to delete ${key}?`, [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          await removeValue(key);
+
+          // Filter out the deleted key from both dateKeys and customKeys
+          const updatedDateKeys = dateKeys.filter((dateKey) => dateKey !== key);
+          const updatedCustomKeys = customKeys.filter(
+            (customKey) => customKey !== key,
+          );
+
+          setDateKeys(updatedDateKeys);
+          setCustomKeys(updatedCustomKeys);
+
+          // Update visible keys accordingly
+          setVisibleKeys(isDate ? updatedDateKeys : updatedCustomKeys);
+        },
+      },
+    ]);
+  };
 
   const renderLeftActions = (progress, dragX, key) => {
     const translateX = dragX.interpolate({
@@ -69,22 +98,6 @@ const NotesList = () => {
         </Pressable>
       </Animated.View>
     );
-  };
-
-  const handleDelete = (key) => {
-    Alert.alert("Delete", `Are you sure you want to delete ${key}?`, [
-      {
-        text: "Cancel",
-        style: "cancel",
-      },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: () => {
-          console.log(`Deleted: ${key}`);
-        },
-      },
-    ]);
   };
 
   return (

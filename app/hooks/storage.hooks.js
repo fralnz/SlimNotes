@@ -29,9 +29,9 @@ export const getMyObject = async () => {
   console.log("Done.");
 };
 
-export const removeValue = async () => {
+export const removeValue = async (key) => {
   try {
-    await AsyncStorage.removeItem("@MyApp_key");
+    await AsyncStorage.removeItem(key);
   } catch (e) {
     // remove error
   }
