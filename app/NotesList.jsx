@@ -13,6 +13,7 @@ import { FlashList } from "@shopify/flash-list";
 import { useIsFocused } from "@react-navigation/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { DeleteIcon } from "./components/icons/DeleteIcon";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -57,14 +58,14 @@ const NotesList = () => {
           transform: [{ translateX }],
           backgroundColor: "red",
           justifyContent: "center",
-          alignItems: "flex-start",
+          alignItems: "center",
           paddingHorizontal: 20,
           width: 100,
           height: "100%",
         }}
       >
         <Pressable onPress={() => handleDelete(key)}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Delete</Text>
+          <DeleteIcon />
         </Pressable>
       </Animated.View>
     );

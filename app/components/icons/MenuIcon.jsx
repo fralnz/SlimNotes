@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
-const CalendarIcon = ({ width = 32, height = 32, ...otherProps }) => (
+const MenuIcon = ({ width = 32, height = 32, ...otherProps }) => (
     <Svg
         xmlns="http://www.w3.org/2000/svg"
         width={width}
@@ -13,4 +13,4 @@ const CalendarIcon = ({ width = 32, height = 32, ...otherProps }) => (
     </Svg>
 );
 
-export default CalendarIcon;
+export default MenuIcon;
