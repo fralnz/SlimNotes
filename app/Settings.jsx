@@ -1,13 +1,19 @@
 import { Pressable, SafeAreaView, Text, View } from "react-native";
 import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
-import React from "react";
+import React, { useState } from "react";
 import { removeAll } from "./hooks/storage.hooks";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import { DatePicker, SavedSwitch } from "./components/SettingsComponents";
+import DeleteAllModal from "./components/DeleteAllModal";
 
 const Settings = () => {
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const toggleModalVisible = () => {
+    setDeleteModalVisible(!deleteModalVisible);
+  };
+
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
       <BackHeader />
@@ -31,7 +37,7 @@ const Settings = () => {
       <Pressable
         style={{ zIndex: -5 }}
         onPress={() => {
-          removeAll();
+          toggleModalVisible();
         }}
       >
         <Text
@@ -47,6 +53,10 @@ const Settings = () => {
         >
           Remove all Notes
         </Text>
+        <DeleteAllModal
+          isVisible={deleteModalVisible}
+          toggleModal={toggleModalVisible}
+        />
       </Pressable>
     </SafeAreaView>
   );

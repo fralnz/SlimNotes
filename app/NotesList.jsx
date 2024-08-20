@@ -14,6 +14,7 @@ import { useIsFocused } from "@react-navigation/native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { DeleteIcon } from "./components/icons/DeleteIcon";
+import styleNoteEdit from "./style/styleNoteEdit";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -83,15 +84,7 @@ const NotesList = () => {
 
     return (
       <Animated.View
-        style={{
-          transform: [{ translateX }],
-          backgroundColor: "red",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingHorizontal: 20,
-          width: 100,
-          height: "100%",
-        }}
+        style={[styleNoteEdit.deleteAnimation, {transform: [{ translateX }]}]}
       >
         <Pressable onPress={() => handleDelete(key)}>
           <DeleteIcon />
@@ -163,20 +156,8 @@ const NotesList = () => {
           <Text style={styleNotesList.list}>No notes found</Text>
         )}
       </GestureHandlerRootView>
-      <Pressable onPress={toggleModal}>
-        <Text
-          style={{
-            backgroundColor: "#0070F2",
-            fontSize: 16,
-            color: "white",
-            padding: 15,
-            fontWeight: 600,
-            borderRadius: 20,
-            marginTop: 20,
-          }}
-        >
-          New Note
-        </Text>
+      <Pressable onPress={toggleModal} style={styleNoteEdit.buttonBackGround}>
+        <Text style={styleNoteEdit.buttonText}>+</Text>
       </Pressable>
       <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
     </SafeAreaView>
