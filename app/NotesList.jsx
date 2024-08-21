@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Text, SafeAreaView, Pressable, Alert, Animated } from "react-native";
-import CustomSwitch from "react-native-custom-switch-new";
 import styleAndroid from "./style/styleAndroid";
 import styleNotesList from "./style/styleNotesList";
 import NewNoteModal from "./components/NewNoteModal";
@@ -15,6 +14,7 @@ import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { DeleteIcon } from "./components/icons/DeleteIcon";
 import styleNoteEdit from "./style/styleNoteEdit";
+import NotesSwitch from "./components/NotesSwitch";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -84,7 +84,7 @@ const NotesList = () => {
 
     return (
       <Animated.View
-        style={[styleNoteEdit.deleteAnimation, {transform: [{ translateX }]}]}
+        style={[styleNoteEdit.deleteAnimation, { transform: [{ translateX }] }]}
       >
         <Pressable onPress={() => handleDelete(key)}>
           <DeleteIcon />
@@ -98,33 +98,11 @@ const NotesList = () => {
       style={[styleAndroid.droidSafeArea, styleNotesList.notesPage]}
     >
       <BackHeader />
-      <CustomSwitch
-        switchLeftText={"Custom Notes"}
-        switchLeftTextStyle={{
-          color: "white",
-          fontSize: 16,
-          fontWeight: "600",
-        }}
-        switchRightText={"Daily Notes"}
-        switchRightTextStyle={{
-          color: "black",
-          fontSize: 16,
-          fontWeight: "600",
-        }}
-        buttonWidth={40}
-        switchWidth={200}
-        buttonPadding={2}
-        switchBackgroundColor={"#EAECEF"}
-        onSwitchBackgroundColor={"#0070F2"}
-        startOnLeft={true}
-        onSwitchReverse={() => {
-          setVisibleKeys(dateKeys);
-          setIsDate(true);
-        }}
-        onSwitch={() => {
-          setVisibleKeys(customKeys);
-          setIsDate(false);
-        }}
+      <NotesSwitch
+        setVisibleKeys={setVisibleKeys}
+        dateKeys={dateKeys}
+        customKeys={customKeys}
+        setIsDate={setIsDate}
       />
       <GestureHandlerRootView style={styleNotesList.listContainer}>
         {visibleKeys.length > 0 ? (
