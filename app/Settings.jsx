@@ -7,13 +7,9 @@ import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import { DatePicker, SavedSwitch } from "./components/SettingsComponents";
 import DeleteAllModal from "./components/DeleteAllModal";
+import DeleteAllButton from "./components/DeleteAllButton";
 
 const Settings = () => {
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const toggleModalVisible = () => {
-    setDeleteModalVisible(!deleteModalVisible);
-  };
-
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
       <BackHeader />
@@ -25,6 +21,7 @@ const Settings = () => {
       >
         Settings
       </Text>
+      <Text style={styleConfig.subtitle}>Master Settings</Text>
       <View style={[styleConfig.sectionContainer, { zIndex: 9 }]}>
         <Text style={styleConfig.sectionText}>Date Format:</Text>
         <DatePicker />
@@ -33,31 +30,8 @@ const Settings = () => {
         <Text style={styleConfig.sectionText}>Display save status:</Text>
         <SavedSwitch />
       </View>
-
-      <Pressable
-        style={{ zIndex: -5 }}
-        onPress={() => {
-          toggleModalVisible();
-        }}
-      >
-        <Text
-          style={{
-            backgroundColor: "#d6d6d6",
-            fontSize: 16,
-            color: "black",
-            padding: 15,
-            fontWeight: 600,
-            borderRadius: 10,
-            marginTop: 20,
-          }}
-        >
-          Remove all Notes
-        </Text>
-        <DeleteAllModal
-          isVisible={deleteModalVisible}
-          toggleModal={toggleModalVisible}
-        />
-      </Pressable>
+      <Text style={styleConfig.subtitle}>Danger Zone</Text>
+      <DeleteAllButton />
     </SafeAreaView>
   );
 };
