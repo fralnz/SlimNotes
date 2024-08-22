@@ -11,6 +11,7 @@ import {
 } from "./components/SettingsComponents";
 import DeleteAllButton from "./components/DeleteAllButton";
 import { router } from "expo-router";
+import TimeModal from "./components/TimeModal";
 
 const Settings = () => {
   return (
@@ -40,7 +41,7 @@ const Settings = () => {
       </View>
       <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
         <Text style={styleConfig.sectionText}>Schedule notifications:</Text>
-        <NotificationsSwitch />
+        <TimeModal />
       </View>
       <Text style={styleConfig.subtitle}>Danger Zone</Text>
       <DeleteAllButton />
