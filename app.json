@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.fralnz.SlimNotes"
+      "package": "com.fralnz.slimnotes",
+      "googleServicesFile": "./path/to/google-services.json"
     },
     "web": {
       "bundler": "metro",

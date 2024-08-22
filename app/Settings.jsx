@@ -2,12 +2,11 @@ import { Pressable, SafeAreaView, Text, View } from "react-native";
 import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
 import React, { useState } from "react";
-import { removeAll } from "./hooks/storage.hooks";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import { DatePicker, SavedSwitch } from "./components/SettingsComponents";
-import DeleteAllModal from "./components/DeleteAllModal";
 import DeleteAllButton from "./components/DeleteAllButton";
+import { router } from "expo-router";
 
 const Settings = () => {
   return (
@@ -32,6 +31,13 @@ const Settings = () => {
       </View>
       <Text style={styleConfig.subtitle}>Danger Zone</Text>
       <DeleteAllButton />
+      <Pressable
+        onPress={() => {
+          router.push("Notifications");
+        }}
+      >
+        <Text>NOTIFICATION</Text>
+      </Pressable>
     </SafeAreaView>
   );
 };
