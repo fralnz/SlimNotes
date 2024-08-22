@@ -4,7 +4,11 @@ import styleNoteEditor from "./style/styleNoteEditor";
 import React, { useState } from "react";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
-import { DatePicker, SavedSwitch } from "./components/SettingsComponents";
+import {
+  DatePicker,
+  NotificationsSwitch,
+  SavedSwitch,
+} from "./components/SettingsComponents";
 import DeleteAllButton from "./components/DeleteAllButton";
 import { router } from "expo-router";
 
@@ -28,6 +32,15 @@ const Settings = () => {
       <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
         <Text style={styleConfig.sectionText}>Display save status:</Text>
         <SavedSwitch />
+      </View>
+      <Text style={styleConfig.subtitle}>Notifications</Text>
+      <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
+        <Text style={styleConfig.sectionText}>Enable notifications:</Text>
+        <NotificationsSwitch />
+      </View>
+      <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
+        <Text style={styleConfig.sectionText}>Schedule notifications:</Text>
+        <NotificationsSwitch />
       </View>
       <Text style={styleConfig.subtitle}>Danger Zone</Text>
       <DeleteAllButton />

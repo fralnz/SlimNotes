@@ -61,3 +61,29 @@ export const SavedSwitch = () => {
     />
   );
 };
+
+export const NotificationsSwitch = () => {
+  const { savedEnabled, setSavedEnabled } = useNoteContext();
+
+  const storeNotificationsEnabled = async (value) => {
+    await storeData("@savedenabled", value);
+    setSavedEnabled(value);
+  };
+
+  return (
+    <CustomSwitch
+      buttonWidth={30}
+      switchWidth={70}
+      buttonPadding={2}
+      switchBackgroundColor={"#EAECEF"}
+      onSwitchBackgroundColor={"#0070F2"}
+      startOnLeft={savedEnabled}
+      onSwitchReverse={() => {
+        storeNotificationsEnabled(false);
+      }}
+      onSwitch={() => {
+        storeNotificationsEnabled(true);
+      }}
+    />
+  );
+};
