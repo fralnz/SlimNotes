@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, SafeAreaView, Text } from "react-native";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import { schedulePushNotification } from "../hooks/notifications.hooks";
 
 const TimeModal = () => {
   const [time, setTime] = useState(new Date());
@@ -12,9 +13,15 @@ const TimeModal = () => {
 
       // Calculate the difference in minutes between the current time and the selected time
       const currentTime = new Date();
-      const difference =
+      let difference =
         (selectedTime.getTime() - currentTime.getTime()) / 1000 / 60;
-      setTimeDifference(Math.round(difference));
+      difference = Math.round(difference);
+      setTimeDifference(difference);
+      console.log("timeDifference", timeDifference);
+      if (timeDifference < 0) {
+        setTimeDifference(timeDifference + 1440);
+      }
+      schedulePushNotification(timeDifference * 60);
     }
   };
 

@@ -2,6 +2,7 @@ import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
+import { getData, storeData } from "@/app/hooks/storage.hooks";
 
 export const registerForPushNotificationsAsync = async () => {
   let token;
@@ -46,13 +47,30 @@ export const registerForPushNotificationsAsync = async () => {
   return token;
 };
 
-export const schedulePushNotification = async () => {
-  await Notifications.scheduleNotificationAsync({
+export const schedulePushNotification = async (number) => {
+  const notificationId = await getData("@notificationid");
+  await cancelNotification(notificationId);
+  let seconds;
+  if (number > 0) seconds = number;
+  else seconds = 1;
+  const id = await Notifications.scheduleNotificationAsync({
     content: {
-      title: "You've got notification! 🔔",
-      body: "Here is the notification body",
+      title: "Daily note! 🖋️",
+      body: "Remember to write your daily note!",
       data: { data: "goes here" },
     },
-    trigger: { seconds: 2 }, // You can change this to any time interval you want
+    trigger: { seconds: seconds },
   });
+  console.log("Notification scheduled with ID:", id);
+  console.log("seconds:", seconds);
+  await storeData("@notificationid", id);
+};
+
+export const cancelNotification = async (id) => {
+  if (id) {
+    await Notifications.cancelScheduledNotificationAsync(id);
+    console.log("Notification canceled with ID:", id);
+  } else {
+    console.log("No notification to cancel.");
+  }
 };

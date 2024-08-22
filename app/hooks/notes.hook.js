@@ -6,15 +6,18 @@ export const useNotes = () => {
   const [savedEnabled, setSavedEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [dateFormat, setDateFormat] = useState(null);
+  const [notificationId, setNotificationId] = useState(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
       const se = await getData("@savedenabled");
       const ne = await getData("@notificationsenabled");
       const df = await getData("@dateformat");
+      const nid = await getData("@notificationid");
       setSavedEnabled(se);
       setNotificationsEnabled(ne);
       setDateFormat(df);
+      setNotificationId(nid);
     };
     fetchSettings();
   }, []);
@@ -24,6 +27,8 @@ export const useNotes = () => {
     setSaved,
     notificationsEnabled,
     setNotificationsEnabled,
+    notificationId,
+    setNotificationId,
     savedEnabled,
     setSavedEnabled,
     dateFormat,
