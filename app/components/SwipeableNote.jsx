@@ -6,10 +6,20 @@ import React from "react";
 import { removeValue } from "../hooks/storage.hooks";
 import styleNoteEdit from "../style/styleNoteEdit";
 import { DeleteIcon } from "./icons/DeleteIcon";
-import {useNoteContext} from "../hooks/notes.hook";
+import { useNoteContext } from "../hooks/notes.hook";
+import { useRouter } from "expo-router";
 
-const SwipeableNote = ({ item, dateKeys, customKeys, setDateKeys, setCustomKeys, setVisibleKeys, isDate }) => {
+const SwipeableNote = ({
+  item,
+  dateKeys,
+  customKeys,
+  setDateKeys,
+  setCustomKeys,
+  setVisibleKeys,
+  isDate,
+}) => {
   const { dateFormat } = useNoteContext();
+  const router = useRouter();
 
   const handleDelete = async (key) => {
     Alert.alert("Delete", `Are you sure you want to delete ${key}?`, [
