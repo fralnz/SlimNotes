@@ -47,22 +47,24 @@ export const registerForPushNotificationsAsync = async () => {
   return token;
 };
 
-export const schedulePushNotification = async (number) => {
+export const schedulePushNotification = async (hour, minute) => {
   const notificationId = await getData("@notificationid");
   await cancelNotification(notificationId);
-  let seconds;
-  if (number > 0) seconds = number;
-  else seconds = 1;
+
   const id = await Notifications.scheduleNotificationAsync({
     content: {
       title: "Daily note! 🖋️",
       body: "Remember to write your daily note!",
       data: { data: "goes here" },
     },
-    trigger: { seconds: seconds },
+    trigger: {
+      hour: hour, // Set the hour for the notification
+      minute: minute, // Set the minute for the notification
+      repeats: true, // Repeat daily
+    },
   });
-  console.log("Notification scheduled with ID:", id);
-  console.log("seconds:", seconds);
+
+  console.log(`Notification scheduled for ${hour}:${minute} with ID:`, id);
   await storeData("@notificationid", id);
 };
 
