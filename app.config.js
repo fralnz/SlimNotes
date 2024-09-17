@@ -6,7 +6,7 @@ export default {
   expo: {
     name: "SlimNotes",
     slug: "SlimNotes",
-    version: "0.0.4",
+    version: "0.0.5",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
