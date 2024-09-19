@@ -3,12 +3,12 @@ import * as Device from "expo-device";
 import Constants from "expo-constants";
 import { Platform } from "react-native";
 import { getData, storeData } from "@/app/hooks/storage.hooks";
+import { useNoteContext } from "@/app/hooks/notes.hook";
 
 export const registerForPushNotificationsAsync = async () => {
   let token;
 
   if (Platform.OS === "android") {
-    // Don't forget to import Platform from react-native
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.AndroidImportance.MAX,
@@ -74,5 +74,15 @@ export const cancelNotification = async (id) => {
     console.log("Notification canceled with ID:", id);
   } else {
     console.log("No notification to cancel.");
+  }
+};
+
+export const toggleEnableNotifications = async () => {
+  const notificationId = await getData("@notificationid");
+  const { notificationsEnabled } = useNoteContext();
+  if (notificationsEnabled) {
+    await cancelNotification(notificationId);
+  } else {
+    // save notification time
   }
 };

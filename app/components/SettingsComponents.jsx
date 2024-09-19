@@ -63,11 +63,11 @@ export const SavedSwitch = () => {
 };
 
 export const NotificationsSwitch = () => {
-  const { savedEnabled, setSavedEnabled } = useNoteContext();
+  const { notificationsEnabled, setNotificationsEnabled } = useNoteContext();
 
   const storeNotificationsEnabled = async (value) => {
-    await storeData("@savedenabled", value);
-    setSavedEnabled(value);
+    await storeData("@notificationsenabled", value);
+    setNotificationsEnabled(value);
   };
 
   return (
@@ -77,7 +77,7 @@ export const NotificationsSwitch = () => {
       buttonPadding={2}
       switchBackgroundColor={"#EAECEF"}
       onSwitchBackgroundColor={"#0070F2"}
-      startOnLeft={savedEnabled}
+      startOnLeft={notificationsEnabled}
       onSwitchReverse={() => {
         storeNotificationsEnabled(false);
       }}
