@@ -86,3 +86,9 @@ export const toggleEnableNotifications = async () => {
     // save notification time
   }
 };
+
+export const disableAllNotifications = async () => {
+  await Notifications.cancelAllScheduledNotificationsAsync();
+  await Notifications.dismissAllNotificationsAsync();
+  console.log("All notifications canceled and dismissed.");
+};

@@ -3,6 +3,7 @@ import { storeData } from "../hooks/storage.hooks";
 import DropDownPicker from "react-native-dropdown-picker";
 import CustomSwitch from "react-native-custom-switch-new";
 import { useNoteContext } from "../hooks/notes.hook";
+import { disableAllNotifications } from "../hooks/notifications.hooks";
 
 export const DatePicker = () => {
   const { dateFormat, setDateFormat } = useNoteContext();
@@ -80,6 +81,7 @@ export const NotificationsSwitch = () => {
       startOnLeft={notificationsEnabled}
       onSwitchReverse={() => {
         storeNotificationsEnabled(false);
+        disableAllNotifications();
       }}
       onSwitch={() => {
         storeNotificationsEnabled(true);
