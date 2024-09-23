@@ -12,8 +12,10 @@ import {
 import DeleteAllButton from "./components/DeleteAllButton";
 import { router } from "expo-router";
 import TimeModal from "./components/TimeModal";
+import { useNoteContext } from "./hooks/notes.hook";
 
 const Settings = () => {
+  const { notificationsEnabled } = useNoteContext();
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
       <BackHeader />
@@ -39,10 +41,12 @@ const Settings = () => {
         <Text style={styleConfig.sectionText}>Enable notifications:</Text>
         <NotificationsSwitch />
       </View>
-      <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
-        <Text style={styleConfig.sectionText}>Schedule notifications:</Text>
-        <TimeModal />
-      </View>
+      {notificationsEnabled && (
+        <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
+          <Text style={styleConfig.sectionText}>Schedule notifications:</Text>
+          <TimeModal />
+        </View>
+      )}
       <Text style={styleConfig.subtitle}>Danger Zone</Text>
       <DeleteAllButton />
       <Pressable
