@@ -1,7 +1,7 @@
 import { Pressable, SafeAreaView, Text, View } from "react-native";
 import styleAndroid from "./style/styleAndroid";
 import styleNoteEditor from "./style/styleNoteEditor";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styleConfig from "./style/styleConfig";
 import BackHeader from "./components/BackHeader";
 import {
@@ -13,8 +13,13 @@ import DeleteAllButton from "./components/DeleteAllButton";
 import { router } from "expo-router";
 import TimeModal from "./components/TimeModal";
 import { useNoteContext } from "./hooks/notes.hook";
+import { registerForPushNotificationsAsync } from "./hooks/notifications.hooks";
 
 const Settings = () => {
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
   const { notificationsEnabled } = useNoteContext();
   return (
     <SafeAreaView style={styleAndroid.droidSafeArea}>
@@ -49,13 +54,6 @@ const Settings = () => {
       )}
       <Text style={styleConfig.subtitle}>Danger Zone</Text>
       <DeleteAllButton />
-      <Pressable
-        onPress={() => {
-          router.push("Notifications");
-        }}
-      >
-        <Text>NOTIFICATION</Text>
-      </Pressable>
     </SafeAreaView>
   );
 };
