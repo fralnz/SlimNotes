@@ -11,7 +11,11 @@ import Modal from "react-native-modal";
 import styleModal from "../style/styleModal";
 import { useRouter } from "expo-router";
 
-const NewNoteModal = ({ isVisible, toggleModal }) => {
+const NewNoteModal = ({
+  isVisible,
+  toggleModal,
+  placeHolder = "Name of the new note",
+}) => {
   const [newNote, setNewNote] = useState("");
   const router = useRouter();
 
@@ -33,7 +37,7 @@ const NewNoteModal = ({ isVisible, toggleModal }) => {
       >
         <View style={styleModal.modalContent}>
           <TextInput
-            placeholder="Name of the new note"
+            placeholder={placeHolder}
             value={newNote}
             onChangeText={onTextChange}
             style={styleModal.textInput}

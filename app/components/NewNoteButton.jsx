@@ -4,7 +4,7 @@ import styleNoteEdit from "../style/styleNoteEdit";
 import { NoteIcon } from "./icons/NoteIcon";
 import { ToDoIcon } from "./icons/ToDoIcon";
 
-const NewNoteButton = ({ action1 }, {action2}) => {
+const NewNoteButton = ({ action1, action2 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const button1Anim = useRef(new Animated.Value(0)).current;
   const button2Anim = useRef(new Animated.Value(0)).current;
@@ -48,7 +48,12 @@ const NewNoteButton = ({ action1 }, {action2}) => {
           { transform: [{ translateY: button2Anim }] },
         ]}
       >
-        <Pressable style={styleNoteEdit.iconButton}>
+        <Pressable
+          style={styleNoteEdit.iconButton}
+          onPress={() => {
+            action2();
+          }}
+        >
           <ToDoIcon width={30} height={30} />
         </Pressable>
       </Animated.View>

@@ -9,7 +9,6 @@ import BackHeader from "./components/BackHeader";
 import { FlashList } from "@shopify/flash-list";
 import { useIsFocused } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import styleNoteEdit from "./style/styleNoteEdit";
 import NotesSwitch from "./components/NotesSwitch";
 import SwipeableNote from "./components/SwipeableNote";
 import NewNoteButton from "./components/NewNoteButton";
@@ -17,13 +16,18 @@ import NewNoteButton from "./components/NewNoteButton";
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
   const [customKeys, setCustomKeys] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [noteModalVisible, setNoteModalVisible] = useState(false);
+  const [todoModalVisible, setTodoModalVisible] = useState(false);
   const [visibleKeys, setVisibleKeys] = useState([]);
   const [isDate, setIsDate] = useState(false);
   const isFocused = useIsFocused();
 
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
+  const toggleNoteModal = () => {
+    setNoteModalVisible(!noteModalVisible);
+  };
+
+  const toggleTodoModal = () => {
+    setTodoModalVisible(!todoModalVisible);
   };
 
   const fetchKeys = async () => {
@@ -75,8 +79,16 @@ const NotesList = () => {
           <Text style={styleNotesList.list}>No notes found</Text>
         )}
       </GestureHandlerRootView>
-      <NewNoteButton action1={toggleModal} action2={toggleModal} />
-      <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
+      <NewNoteButton action1={toggleNoteModal} action2={toggleTodoModal} />
+      <NewNoteModal
+        isVisible={noteModalVisible}
+        toggleModal={toggleNoteModal}
+      />
+      <NewNoteModal
+        isVisible={todoModalVisible}
+        toggleModal={toggleTodoModal}
+        placeHolder={"Name of the To-Do List"}
+      />
     </SafeAreaView>
   );
 };
