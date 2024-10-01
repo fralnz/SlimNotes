@@ -14,6 +14,7 @@ import AppHeader from "@/app/components/AppHeader";
 import { useNoteContext } from "@/app/hooks/notes.hook";
 import { useGlobalSearchParams, useRouter } from "expo-router";
 import { useIsFocused } from "@react-navigation/native";
+import TodoList from "@/app/components/ToDoList";
 
 const EditNote = () => {
   const [content, setContent] = useState("");
@@ -117,7 +118,6 @@ const EditNote = () => {
       },
     }),
   ).current;
-  // TODO: implement todo if todo
   return (
     <View style={[styleNoteEditor.noteContainer, { flex: 1 }]}>
       <AppHeader />
@@ -126,7 +126,7 @@ const EditNote = () => {
       </View>
       <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
         {type === "todo" ? (
-          <Text>TODO</Text>
+          <TodoList />
         ) : (
           <TextInput
             onChangeText={onTextChange}
