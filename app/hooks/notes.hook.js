@@ -7,6 +7,7 @@ export const useNotes = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [dateFormat, setDateFormat] = useState(null);
   const [notificationId, setNotificationId] = useState(null);
+  const [type, setType] = useState(null);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -33,6 +34,8 @@ export const useNotes = () => {
     setSavedEnabled,
     dateFormat,
     setDateFormat,
+    type,
+    setType,
   };
 };
 

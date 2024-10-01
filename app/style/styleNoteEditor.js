@@ -12,8 +12,12 @@ const styleNoteEditor = StyleSheet.create({
     borderWidth: 0,
   },
   noteText: {
+    flex: 1,
+    width: "100%",
+    textAlignVertical: "top",
     fontFamily: "Adamina-Regular",
-    fontSize: 16, // 1rem converted to dp
+    fontSize: 16,
+    marginTop: 20,
   },
   noteTitle: {
     fontFamily: "Adamina-Regular",

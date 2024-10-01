@@ -88,6 +88,7 @@ const NotesList = () => {
         isVisible={todoModalVisible}
         toggleModal={toggleTodoModal}
         placeHolder={"Name of the To-Do List"}
+        type={"todo"}
       />
     </SafeAreaView>
   );

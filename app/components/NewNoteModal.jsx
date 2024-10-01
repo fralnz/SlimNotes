@@ -10,14 +10,17 @@ import {
 import Modal from "react-native-modal";
 import styleModal from "../style/styleModal";
 import { useRouter } from "expo-router";
+import { useNoteContext } from "../hooks/notes.hook";
 
 const NewNoteModal = ({
   isVisible,
   toggleModal,
   placeHolder = "Name of the new note",
+  type = null,
 }) => {
   const [newNote, setNewNote] = useState("");
   const router = useRouter();
+  const { setType } = useNoteContext();
 
   const onTextChange = (text) => {
     setNewNote(text);
@@ -51,6 +54,7 @@ const NewNoteModal = ({
                   pathname: "/",
                   params: { key: newNote },
                 });
+                setType(type);
                 toggleModal();
               }}
               style={[styleModal.button, { backgroundColor: "#0070F2" }]}

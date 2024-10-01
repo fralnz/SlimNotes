@@ -17,6 +17,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 const EditNote = () => {
   const [content, setContent] = useState("");
+  const [type, setType] = useState(null);
   const [title, setTitle] = useState("");
   const [note, setNote] = useState(null);
   const timerRef = useRef(null);
@@ -28,6 +29,7 @@ const EditNote = () => {
   const key = Array.isArray(params.key) ? params.key[0] : params.key;
   const router = useRouter();
   const isFocused = useIsFocused();
+  const { type: noteType, setType: setNoteType } = useNoteContext();
 
   const MIN_SWIPE_DISTANCE = 10;
 
@@ -48,6 +50,11 @@ const EditNote = () => {
       if (answer) {
         setNote(answer);
         setContent(answer.content);
+        setType(answer.type);
+        setNoteType(type);
+        if (!type) {
+          setType(noteType);
+        }
       } else {
         setNote("");
         setContent("");
@@ -110,7 +117,7 @@ const EditNote = () => {
       },
     }),
   ).current;
-
+  // TODO: implement todo if todo
   return (
     <View style={[styleNoteEditor.noteContainer, { flex: 1 }]}>
       <AppHeader />
@@ -118,20 +125,17 @@ const EditNote = () => {
         <Text style={styleNoteEditor.noteTitle}>{title}</Text>
       </View>
       <View style={{ flex: 1, width: "100%", paddingHorizontal: 10 }}>
-        <TextInput
-          onChangeText={onTextChange}
-          placeholder={"Insert text here"}
-          value={content}
-          multiline={true}
-          style={{
-            flex: 1,
-            width: "100%",
-            textAlignVertical: "top",
-            fontFamily: "Adamina-Regular",
-            fontSize: 16,
-            marginTop: 20,
-          }}
-        />
+        {type === "todo" ? (
+          <Text>TODO</Text>
+        ) : (
+          <TextInput
+            onChangeText={onTextChange}
+            placeholder={"Insert text here"}
+            value={content}
+            multiline={true}
+            style={styleNoteEditor.noteText}
+          />
+        )}
       </View>
     </View>
   );
