@@ -12,6 +12,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import styleNoteEdit from "./style/styleNoteEdit";
 import NotesSwitch from "./components/NotesSwitch";
 import SwipeableNote from "./components/SwipeableNote";
+import NewNoteButton from "./components/NewNoteButton";
 
 const NotesList = () => {
   const [dateKeys, setDateKeys] = useState([]);
@@ -74,9 +75,7 @@ const NotesList = () => {
           <Text style={styleNotesList.list}>No notes found</Text>
         )}
       </GestureHandlerRootView>
-      <Pressable onPress={toggleModal} style={styleNoteEdit.buttonBackGround}>
-        <Text style={styleNoteEdit.buttonText}>+</Text>
-      </Pressable>
+      <NewNoteButton action1={toggleModal} action2={toggleModal} />
       <NewNoteModal isVisible={modalVisible} toggleModal={toggleModal} />
     </SafeAreaView>
   );

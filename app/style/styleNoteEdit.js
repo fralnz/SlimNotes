@@ -29,6 +29,21 @@ const styleNoteEdit = StyleSheet.create({
     width: 100,
     height: "100%",
   },
+  buttonContainer: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    alignItems: "center",
+  },
+  plusButton: {
+    zIndex: 3,
+  },
+  iconButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+  },
 });
 
 export default styleNoteEdit;
