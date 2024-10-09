@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { Button, SafeAreaView, Text } from "react-native";
+import React, { useState } from "react";
+import { Button, Pressable, SafeAreaView, Text, View } from "react-native";
 import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import { schedulePushNotification } from "../hooks/notifications.hooks";
+import styleConfig from "../style/styleConfig";
 
 const TimeModal = () => {
   const [time, setTime] = useState(new Date());
@@ -26,13 +27,27 @@ const TimeModal = () => {
   };
 
   return (
-    <SafeAreaView>
-      <Button onPress={showTimepicker} title="Show time picker!" />
-      <Text>
-        Selected time:{" "}
-        {time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-      </Text>
-    </SafeAreaView>
+    <View
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+      }}
+    >
+      <Pressable
+        onPress={showTimepicker}
+        title="Show time picker!"
+        style={{ flexDirection: "row", justifyContent: "space-between" }}
+      >
+        <Text style={styleConfig.sectionText}>Schedule notifications:</Text>
+        <Text style={[styleConfig.sectionText, { alignSelf: "flex-end" }]}>
+          {time.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </Text>
+      </Pressable>
+    </View>
   );
 };
 

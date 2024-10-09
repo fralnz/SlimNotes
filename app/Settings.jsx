@@ -48,7 +48,6 @@ const Settings = () => {
       </View>
       {notificationsEnabled && (
         <View style={[styleConfig.sectionContainer, { zIndex: -5 }]}>
-          <Text style={styleConfig.sectionText}>Schedule notifications:</Text>
           <TimeModal />
         </View>
       )}
