@@ -63,3 +63,24 @@ export const removeAll = async () => {
 
   console.log("Removed all keys");
 };
+
+export const exportAllData = async () => {
+  const data = [];
+  const keys = await getAllKeys();
+  for (const key of keys) {
+    const value = await getData(key);
+    const obj = { key: key, value: value };
+    data.push(obj);
+  }
+  // console.log(data);
+  console.log("Data exported");
+  return data;
+};
+
+export const importData = async (data) => {
+  for (const obj of data) {
+    const { key, value } = obj;
+    await storeData(key, value);
+  }
+  console.log("Data imported");
+};
